@@ -1,14 +1,15 @@
 
 import './App.css';
 import Home from './Home';
+import { GeneralStyle } from './styled-components/styleIndex';
 
 function App() {
 
   return (
-    <div>
-      App component
-      <Home />
-    </div>
+    <GeneralStyle>
+        <Home />
+    </GeneralStyle>
+   
   );
 }
 
