@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    entities: {}, // user object
+    value: {}, // user object
     status: "idle", // loading state
   };
 
@@ -9,18 +9,18 @@ const initialState = {
     // return a Promise containing the data we want
     return fetch('/me')
         .then(resp => resp.json())
-        .then((data)=> {
-            if (data.errors) {
-                // setLoginErrors(data.errors)
-                // setLoggedIn(false)
-            } else {
-            console.log(data)
-            }
-        })
+        .then((data)=> {return data})
+            // if (data.errors) {
+            //     // setLoginErrors(data.errors)
+            //     // setLoggedIn(false)
+            // } else {
+            // data
+            // }
+        
   });
 
   const userSlice = createSlice({
-    name: "user",
+    name: "userName",
     initialState,
     reducers: {
     //   userSignedIn(state, action) {
@@ -31,13 +31,22 @@ const initialState = {
     //     const cat = state.entities.find((cat) => cat.id === action.payload.id);
     //     cat.url = action.payload.url;
     //   },
-      extraReducers: {
-          [fetchUser.fulfilled](state, action){
-              state.entities = action.payload;
-              state.status = "idle";
-          }
-      }
     },
-  });
+      extraReducers: (builder) => {
+          builder
+          .addCase(fetchUser.pending, (state) => {
+            state.status='loading'
+          })
+          .addCase(fetchUser.fulfilled, (state, action) => {
+            state.value = action.payload
+            state.status='succeeded'
+          })
+          .addCase(fetchUser.rejected, (state) => {
+            state.status='rejected'
+          })
+            
+      }
+    });
+
   
   export default userSlice.reducer;
