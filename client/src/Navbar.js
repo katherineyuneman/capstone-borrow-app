@@ -10,22 +10,26 @@ const Navbar = () => {
                 <div className="brand">
                     Borrow
                 </div>
-                    <nav>
+                <nav>
                     <ul className="nav-list">
-                        <li><Link to="/signup"> Signup </Link> </li>
-                        <li><Link to="/login"> Login </Link></li>
-                        <li><Link to="/foods"> Food List</Link>
+                        <li><Link to="/signup"> Login/Signup </Link> </li>
+                        <li><Link to="/foods">Rentals</Link>
                             <ul className="nav-dropdown">
-                            <li><a href="#!">Web Design</a></li>
-                <li><a href="#!">Web Development</a></li>
-                <li><a href="#!">Graphic Design</a></li>
-            </ul>
-            </li>
-            <li><a href="#!">Pricing</a></li>
-            <li><a href="#!">Contact</a></li>
-        </ul>
-        </nav>
-                </div>
+                                <li><a href="#!">How it Works</a></li>
+                                <li><a href="#!">Plans</a></li>
+                            </ul>
+                        </li>
+                        <li><Link to="/foods">Books</Link>
+                            <ul className="nav-dropdown">
+                                <li><a href="#!">Categories</a></li>
+                                <li><a href="#!">Authors</a></li>
+                            </ul>
+                        </li>
+                        <li><Link to="/foods">My Account</Link></li>
+                        <li><Link to="/foods">Logout</Link></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </NavBar>
   )

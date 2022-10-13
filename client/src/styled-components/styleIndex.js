@@ -5,7 +5,7 @@ const GeneralStyle = styled.div`
   background: white;
   color: #000000;
   font-family: 'Montserrat';
-  font-size: 25px;
+  font-size: 18px;
 `
 
 const NavBar = styled.div`
