@@ -4,17 +4,19 @@ import Home from './Home';
 import {Route, Routes, useNavigate} from "react-router-dom"
 import { GeneralStyle } from './styled-components/styleIndex';
 import Signup from './Signup';
+import Login from './Login';
+import Navbar from './Navbar';
 
 function App() {
 
   return (
     <GeneralStyle>
-        <Home />
+        <Navbar />
         <Routes>
-          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          {/* <Route path="/" element={<Home handleFoodSubmit={handleFoodSubmit}/>} />
-          <Route path="/foods" element={<FoodContainer homeSearchedFoods={homeSearchedFoods}/>} />
+          <Route path="/" element={<Home/>} />
+          {/* <Route path="/foods" element={<FoodContainer homeSearchedFoods={homeSearchedFoods}/>} />
           <Route path="foods/:id" element={<FoodDetail />} />
           <Route path="foods/:id/recipes" element={<FoodRecipes />} />
           <Route path="/recipes" element={<RecipeContainer />} />

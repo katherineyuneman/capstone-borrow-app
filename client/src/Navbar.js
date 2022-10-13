@@ -1,8 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { NavBar } from './styled-components/styleIndex'
 
 const Navbar = () => {
+
+    const navigate = useNavigate()
+
+    const logoutUser = () => {
+        fetch('/logout', {
+            method: 'DELETE',
+            headers: { 'Content-type': 'application/json'}
+        })
+        .then(() => {
+            navigate('/login')
+            // logout();
+            console.log("logged out")
+        })
+    }
+
   return (
     <NavBar>
         <div className="navigation">
@@ -26,7 +41,7 @@ const Navbar = () => {
                             </ul>
                         </li>
                         <li><Link to="/foods">My Account</Link></li>
-                        <li><Link to="/foods">Logout</Link></li>
+                        <li><Link to="/foods" onClick={logoutUser}>Logout</Link></li>
                     </ul>
                 </nav>
             </div>
