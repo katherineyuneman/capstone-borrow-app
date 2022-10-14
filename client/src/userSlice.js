@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     value: {}, // user object
+    loggedIn: false,
     status: "idle", // loading state
   };
 
@@ -10,12 +11,6 @@ const initialState = {
     return fetch('/me')
         .then(resp => resp.json())
         .then((data)=> {return data})
-            // if (data.errors) {
-            //     // setLoginErrors(data.errors)
-            //     // setLoggedIn(false)
-            // } else {
-            // data
-            // }
         
   });
 
@@ -38,11 +33,22 @@ const initialState = {
             state.status='loading'
           })
           .addCase(fetchUser.fulfilled, (state, action) => {
-            state.value = action.payload
-            state.status='succeeded'
+              if (action.payload.errors !== undefined) {
+                  state.loggedIn = false
+                  state.status='rejected'
+              } else {
+                    state.loggedIn = true
+                    state.value = action.payload
+                    state.status='succeeded'
+                    
+                }
           })
-          .addCase(fetchUser.rejected, (state) => {
+          .addCase(fetchUser.rejected, (state, action) => {
+              console.log("errors", action.payload.errors)
+              if (action.payload.errors === 'Not authorized') {
+            state.loggedIn = false
             state.status='rejected'
+        }
           })
             
       }

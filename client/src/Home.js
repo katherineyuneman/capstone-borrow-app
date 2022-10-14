@@ -6,20 +6,13 @@ import { fetchUser } from './userSlice'
 const Home = () => {
 
     const user = useSelector((state) => state.user);
+    const loggedIn = useSelector((state) => state.loggedIn)
     const dispatch = useDispatch();
-
-
-    useEffect(() => {
-        fetch('/me')
-        .then(resp => resp.json())
-        .then((data)=> console.log("initial fetch:", data));
-      }, []);
-    
 
     useEffect(() => {
         dispatch(fetchUser());
         console.log("hello from dispatch")
-      }, []);
+      }, [dispatch]);
 
 console.log("user after fetching user:", user)
 
