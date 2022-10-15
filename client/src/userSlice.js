@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    value: {}, // user object
+    value: [], // user object
     loggedIn: false,
     status: "idle", // loading state
   };
@@ -18,14 +18,25 @@ const initialState = {
     name: "userName",
     initialState,
     reducers: {
-    //   userSignedIn(state, action) {
-    //     // using createSlice lets us mutate state!
-    //     state.entities.push(action.payload);
-    //   },
-    //   catUpdated(state, action) {
-    //     const cat = state.entities.find((cat) => cat.id === action.payload.id);
-    //     cat.url = action.payload.url;
-    //   },
+        login(state, action) {
+          // using createSlice lets us mutate state!
+          console.log("action payload from login action:", action.payload)
+          if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
+            state.loggedIn = false
+            state.status='rejected'
+        } else {
+              state.loggedIn = true
+              state.value.push(action.payload);
+              state.status='succeeded'
+          }
+          
+        },
+        logout(state, action) {
+            // using createSlice lets us mutate state!
+            state.loggedIn = false
+            state.value = {}
+            state.status='succeeded'
+          }
     },
       extraReducers: (builder) => {
           builder
@@ -33,14 +44,14 @@ const initialState = {
             state.status='loading'
           })
           .addCase(fetchUser.fulfilled, (state, action) => {
-              if (action.payload.errors !== undefined) {
+              console.log(Object.keys(action.payload).find(key => key==="errors"))
+              if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
                   state.loggedIn = false
                   state.status='rejected'
               } else {
                     state.loggedIn = true
                     state.value = action.payload
-                    state.status='succeeded'
-                    
+                    state.status='succeeded' 
                 }
           })
           .addCase(fetchUser.rejected, (state, action) => {
@@ -54,5 +65,5 @@ const initialState = {
       }
     });
 
-  
+  export const { login, logout } = userSlice.actions
   export default userSlice.reducer;
