@@ -20,17 +20,9 @@ const Navbar = ({logoutUser}) => {
 
     const navigate = useNavigate()
 
-    // const logoutUser = () => {
-    //     fetch('/logout', {
-    //         method: 'DELETE',
-    //         headers: { 'Content-type': 'application/json'}
-    //     })
-    //     .then(() => {
-    //         // setLoggedInNavbar(false)
-    //         navigate('/')
-    //         console.log("logged out")
-    //     })
-    // }
+    const handleDropDown = () => {
+
+    }
 
   return (
     <NavBar>
@@ -41,16 +33,17 @@ const Navbar = ({logoutUser}) => {
                 </div>
                 <nav>
                     <ul className="nav-list">
-                        <li><Link to="/foods">Rentals</Link>
-                            <ul className="nav-dropdown">
+                        <li><Link onClick={handleDropDown}>Rentals</Link>
+                            <ul className="nav-dropdown-none">
                                 <li><a href="#!">How it Works</a></li>
                                 <li><a href="#!">Plans</a></li>
                             </ul>
                         </li>
-                        <li><Link to="/foods">Books</Link>
-                            <ul className="nav-dropdown">
-                                <li><a href="#!">Categories</a></li>
-                                <li><a href="#!">Authors</a></li>
+                        <li><Link onClick={handleDropDown}>Books</Link>
+                            <ul className="nav-dropdown-none">
+                                <li><a href="/books">All Books</a></li>
+                                <li><a href="/categories">Categories</a></li>
+                                <li><a href="/authors">Authors</a></li>
                             </ul>
                         </li>
                         <li><Link to="/foods">My Account</Link></li>

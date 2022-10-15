@@ -51,12 +51,20 @@ const NavBar = styled.div`
     line-height: 20px;
   }
 
-  .nav-dropdown {
+  .nav-dropdown-none {
     position: absolute;
     z-index: 1;
     /* Guarantees that the dropdown will display on top of any content. */
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
     display: none;
+  }
+
+  .nav-dropdown-display {
+    position: absolute;
+    z-index: 1;
+    /* Guarantees that the dropdown will display on top of any content. */
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    /* display: none; */
   }
 
   .nav-mobile {

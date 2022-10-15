@@ -62,13 +62,9 @@ function App() {
           <Route path="/login" element={<Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
-          {/* <Route path="/foods" element={<FoodContainer homeSearchedFoods={homeSearchedFoods}/>} />
-          <Route path="foods/:id" element={<FoodDetail />} />
-          <Route path="foods/:id/recipes" element={<FoodRecipes />} />
-          <Route path="/recipes" element={<RecipeContainer />} />
-          <Route path="/recipes/new" element={<RecipeForm />} />
-          <Route path="/recipes/edit/:id" element={<RecipeEditForm />} />
-          <Route path="/recipes/:id" element={<Recipe />} /> */}
+
+          <Route path="/books" element={<Books />} />
+          
         </Routes>
     </GeneralStyle>
    
