@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_15_183556) do
+ActiveRecord::Schema.define(version: 2022_10_17_191159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2022_10_15_183556) do
     t.bigint "title_id", null: false
     t.boolean "rented"
     t.date "expected_return"
-    t.string "conditon"
+    t.string "condition"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["title_id"], name: "index_books_on_title_id"
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2022_10_15_183556) do
 
   create_table "titles", force: :cascade do |t|
     t.bigint "author_id", null: false
-    t.string "description"
+    t.string "title"
     t.decimal "rating"
     t.string "genre"
     t.date "publication_date"
