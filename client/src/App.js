@@ -6,7 +6,7 @@ import { GeneralStyle } from './styled-components/styleIndex';
 import Signup from './Signup';
 import Login from './Login';
 import Navbar from './Navbar';
-import BooksContainer from "./containers/BooksContainer";
+import TitlesContainer from "./containers/TitlesContainer";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, login, logout } from './userSlice'
 
@@ -64,7 +64,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
 
-          <Route path="/books" element={<BooksContainer />} />
+          <Route path="/titles" element={<TitlesContainer />} />
           
         </Routes>
     </GeneralStyle>

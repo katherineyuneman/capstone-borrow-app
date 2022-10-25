@@ -10,7 +10,7 @@ const initialState = {
     // return a Promise containing the data we want
     return fetch('/me')
         .then(resp => resp.json())
-        .then((data)=> {return data})
+        .then((data)=> {console.log("data post /me fetch:", data); return data})
         
   });
 
@@ -20,13 +20,12 @@ const initialState = {
     reducers: {
         login(state, action) {
           // using createSlice lets us mutate state!
-          console.log("action payload from login action:", action.payload)
           if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
             state.loggedIn = false
             state.status='rejected'
         } else {
               state.loggedIn = true
-              state.value.push(action.payload);
+              state.value = [action.payload]
               state.status='succeeded'
           }
           
