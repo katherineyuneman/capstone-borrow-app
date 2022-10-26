@@ -8,6 +8,45 @@ const GeneralStyle = styled.div`
   font-size: 18px;
 `
 
+const CardContainer = styled.div`
+  
+  .card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    flex-wrap: wrap;
+    max-width: 180px;
+    height: 200px;
+    font-size: 14px;
+  };
+  .container {
+      padding: 2px 16px;
+      /* display: block; */
+      float: left;
+      height: 200px;
+      
+    };
+  
+  .card button {
+  border: none;
+  outline: 0;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  height: 5%;
+}
+.card button:hover {
+  opacity: 0.7;
+  color: #fb5958;
+}
+
+
+`
+
 const NavBar = styled.div`
   /* body {
     background-color: #63D6E0;
@@ -174,6 +213,10 @@ const NavBar = styled.div`
     text-decoration: none;
   }
 `
+
+export {
+  GeneralStyle, NavBar, CardContainer
+}
 
 
 // const Header = styled.div`
@@ -858,6 +901,3 @@ const NavBar = styled.div`
 // `
 
 
-export {
-  GeneralStyle, NavBar
-}

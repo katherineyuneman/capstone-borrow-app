@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react/cjs/react.development'
 import TitlesList from '../components/titles/TitlesList'
+import { CardContainer } from '../styled-components/styleIndex'
 
 const TitlesContainer = () => {
 
@@ -17,16 +18,16 @@ const TitlesContainer = () => {
             setErrors(data.errors)
         } else {
           setTitles(data)
-          console.log(data)
+          console.log("data within fetch titles:",data)
         }
     })
   }, []);
 
 
   return (
-    <div>
-      <TitlesList titles={titles}/>
-    </div>
+      <CardContainer>
+        <TitlesList titles={titles}/>
+      </CardContainer>
   )
 }
 

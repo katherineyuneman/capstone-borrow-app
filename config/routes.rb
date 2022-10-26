@@ -15,4 +15,6 @@ Rails.application.routes.draw do
     resources :titles, only: [:index]
   end
 
+  resources :rentals, only [:create]
+
 end
