@@ -18,6 +18,10 @@ function App() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
 
+    const current = new Date();
+
+    console.log(current.getMonth()+1, current.getDate(), current.getFullYear())
+
 
     useEffect(() => {
         dispatch(fetchUser());
