@@ -1,5 +1,6 @@
 class Book < ApplicationRecord
   belongs_to :title
+  has_many :book_rentals
 
   # def self.available_inventory
   #   self.joins(:books).select(

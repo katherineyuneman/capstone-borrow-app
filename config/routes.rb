@@ -17,4 +17,6 @@ Rails.application.routes.draw do
 
   resources :rentals, only: [:create]
 
+  post '/titles_books', to: 'titles#titles_books'
+
 end

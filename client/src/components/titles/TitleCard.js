@@ -20,6 +20,8 @@ const nextMonth = (current.getMonth()+2).toString()
 const currentYear = current.getFullYear().toString()
 const rentalMonth = nextMonth + currentYear
 
+const [ bookId, setBookId ] = useState()
+
 useEffect(() => {
   dispatch(fetchUser());
   console.log("hello from dispatch")
@@ -30,18 +32,49 @@ const handleClick = () => {
   if (countAvailable > 0) {
     const newCount = countAvailable - 1
     setCountAvailable(newCount)
-    rentalCreation(rentalMonth)
+
+    fetch('/titles_books', {
+      
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify({_json: title.id})
+      })
+
+      .then(resp => resp.json())
+      .then((data) => {
+          if (data.errors){
+            console.log(data.errors)
+              // const errorLis = data.errors.map((error, index) => <li key={index}>{index + 1}. {error}</li>)
+              // setCreateFoodErrorsList(errorLis)
+          } else {
+            console.log("post-post fetch:", data)
+            setBookId(data)
+            rentalCreation(rentalMonth, data)
+              // setCreateFoodErrorsList([])
+              // setDisplayFoodForm(false)
+              // setFoodIngredientOptions([...foodIngredientOptions, data])
+          }
+      })
+      
+
+
+
   } else setCountAvailable(0)
 }
 
 const rentalCreation = (monthInfo, titleInfo) => {
 
   const rental = {
-    month: rentalMonth,
+    month: monthInfo,
     receive_date: (`${currentYear}-${nextMonth}-01`),
     return_date: (`${currentYear}-${nextMonth}-28`),
-    user_id: user.value.id
+    user_id: user.value.id,
+    book_rentals_attributes: {book_id: titleInfo}
   }
+
+  console.log("rental:", rental)
 
     fetch('/rentals', {
       method: 'POST',
@@ -69,7 +102,7 @@ const rentalCreation = (monthInfo, titleInfo) => {
 }
 
 
-console.log(title.title, countAvailable)
+console.log(title.id, title.title, countAvailable)
     return(
       <CardContainer>
         <div className='container'>
