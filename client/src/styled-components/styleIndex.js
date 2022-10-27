@@ -48,12 +48,22 @@ const CardContainer = styled.div`
 `
 
 const NavBar = styled.div`
+.backpack{
+  width: 25%;
+  height: 25%;
+  float: center;
+  padding: 0em;
+};
   /* body {
     background-color: #63D6E0;
   }; */
   nav {
     float: right;
+    margin-right: 0em;
+    margin-left: 0em;
+    background-color: #63D6E0;
 }
+
   nav ul {
     list-style: none;
     margin: 0;
@@ -61,11 +71,15 @@ const NavBar = styled.div`
   }
   nav ul li {
     float: left;
-    position: relative;
+    position: relative 30px;
+    /* background-color: #63D6E0; */
+    /* padding: 0em;
+    margin-right: 0em; */
   }
   nav ul li a {
     display: block;
     padding: 0 20px;
+    
     line-height: 70px;
     background: #ffffff;
     color: #463f3f;
@@ -80,7 +94,7 @@ const NavBar = styled.div`
   }
   nav ul li a:not(:only-child):after {
     padding-left: 4px;
-    content: ' ▾';
+    /* content: ' ▾'; */
   }
   nav ul li ul li {
     min-width: 190px;
@@ -124,19 +138,24 @@ const NavBar = styled.div`
     nav {
       width: 100%;
       padding: 70px 0 15px;
+      
     }
     nav ul {
       display: none;
+      
     }
     nav ul li {
       float: none;
+      
     }
     nav ul li a {
       padding: 15px;
       line-height: 20px;
+      
     }
     nav ul li ul li a {
       padding-left: 30px;
+      
     }
   }
   #nav-toggle {
@@ -189,6 +208,8 @@ const NavBar = styled.div`
   .navigation {
     height: 70px;
     background: #ffffff;
+    /* background-color: #63D6E0;
+    padding-right: 10em; */
   }
 
   /*

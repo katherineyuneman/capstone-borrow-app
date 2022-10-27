@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :titles, only: [:index]
   end
 
-  resources :rentals, only: [:create]
+  resources :rentals, only: [:create, :show]
 
   post '/titles_books', to: 'titles#titles_books'
 

@@ -16,6 +16,30 @@ class RentalsController < ApplicationController
         end
     end
 
+    def show
+        currentRental = Rental.includes(:books)
+        .joins(books: :title)
+        .select('rentals.month',
+        'rentals.id as id', 'rentals.receive_date', 'rentals.return_date',
+        'books.rented', 'books.condition',
+        'titles.title', 'titles.rating', 'titles.genre')
+        .where(month: params[:id])
+        render json: currentRental
+    end
+
+
+    # self
+    # .joins('LEFT OUTER JOIN books ON titles.id = books.title_id AND books.rented = FALSE')
+    # .select(
+    #   'titles.title','titles.id', 'titles.rating',
+    #   'titles.genre', 'titles.author_id as author_id', 'titles.publication_date', 'count(books.rented) as count_available')
+    # .group(
+    #     'titles.title','titles.id', 'titles.rating', 'titles.genre', 'titles.author_id', 'titles.publication_date')
+
+
+
+
+
     private
     def rental_params
         params.require(:rental).permit(:month, :receive_date, :return_date, :user_id)
