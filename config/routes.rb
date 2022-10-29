@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   resources :rentals, only: [:create, :show]
+  resources :book_rentals, only: [:destroy]
 
   post '/titles_books', to: 'titles#titles_books'
 

@@ -10,7 +10,7 @@ const initialState = {
     // return a Promise containing the data we want
     return fetch('/me')
         .then(resp => resp.json())
-        .then((data)=> {console.log("data post /me fetch:", data); return data})
+        .then((data)=> {console.log("data post /me fetch:",data); return data})
         
   });
 

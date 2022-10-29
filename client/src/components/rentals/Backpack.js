@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react/cjs/react.development';
 import { CardContainer } from '../../styled-components/styleIndex';
+import { useSelector, useDispatch } from "react-redux";
+import { fetchBackpack } from '../../backpackSlice';
 
 const Backpack = () => {
 
@@ -11,7 +13,15 @@ const Backpack = () => {
 
     const [bookRentalArray, setBookRentalArray] = useState([])
 
+    const backpack = useSelector((state) => {console.log(state.backpack)
+        return state.backpack; });
+    const atLimit = useSelector((state) => state.backpack.atLimit)
+    const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(fetchBackpack(rentalMonth));
+        console.log("hello from dispatch")
+      }, [dispatch]);
 
     useEffect(() => {
        fetch(`/rentals/${rentalMonth}`)
@@ -24,13 +34,31 @@ const Backpack = () => {
             } else {
               console.log("post-post fetch:", data)
               setBookRentalArray(data)
-            //   rentalCreation(rentalMonth, data)
-                // setCreateFoodErrorsList([])
-                // setDisplayFoodForm(false)
                 // setFoodIngredientOptions([...foodIngredientOptions, data])
             }
         })
       }, []);
+
+      const handleRemoveCart = (book) => {
+
+        fetch(`/book_rentals/${book.book_rental_id}`, {
+            method: "DELETE",
+          }).then((r) => {
+            if (r.ok) {
+                dispatch(fetchBackpack(rentalMonth))
+                setBookRentalArray((backpack) => backpack.filter((book) => book.id !== book.book_id)
+                
+              );
+            }
+          });
+
+
+        
+
+
+
+
+      }
 
     
 console.log("book rental array!", bookRentalArray)
@@ -42,9 +70,10 @@ const bookRentals = bookRentalArray.map(book => {
         <div className='card'>
         <li>{book.title}</li>
         <li>{book.rating}</li>
-        <li>{book.month}</li>
-        <li>{book.receive_date}</li>
+        <li>Return By: {book.return_date}</li>
+        <button onClick={() => handleRemoveCart(book)}>Remove from Cart</button>
         </div>
+        
         </div>
         </CardContainer>
     )

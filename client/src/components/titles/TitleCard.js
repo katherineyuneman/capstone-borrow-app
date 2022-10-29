@@ -3,12 +3,16 @@ import { useState, useEffect } from 'react/cjs/react.development'
 import { CardContainer } from '../../styled-components/styleIndex'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../userSlice';
+import { fetchBackpack } from '../../backpackSlice';
 
 const TitleCard = ({title}) => {
 
 const [ countAvailable, setCountAvailable ] = useState(title.count_available)
 
 const user = useSelector((state) => state.user);
+const backpackItems = useSelector((state) => state.backpack.value.length);
+const atLimit = useSelector((state) => state.backpack.atLimit)
+
     // const loggedIn = useSelector((state) => state.user.loggedIn)
     // const [errorsList, setErrorsList ] = useState([])
 const dispatch = useDispatch();
@@ -24,6 +28,7 @@ const [ bookId, setBookId ] = useState()
 
 useEffect(() => {
   dispatch(fetchUser());
+  dispatch(fetchBackpack(rentalMonth));
   console.log("hello from dispatch")
 }, [dispatch]);
 
@@ -101,8 +106,7 @@ const rentalCreation = (monthInfo, titleInfo) => {
 
 }
 
-
-console.log(title.id, title.title, countAvailable)
+console.log("at limit within TitleCard:", atLimit)
     return(
       <CardContainer>
         <div className='container'>
@@ -114,7 +118,7 @@ console.log(title.id, title.title, countAvailable)
               <br />
               {title.rating}
               </ul>
-              {countAvailable > 0 || title.count_available > 0   ? <button onClick={handleClick}>Add to Cart</button> : <button className='wishlist'>Add to Wishlist</button>}
+              {atLimit === false && (countAvailable > 0 || title.count_available > 0) ? <button onClick={handleClick}>Add to Cart</button> : <button className='wishlist'>Add to Wishlist</button>}
               
             </div>
         </div>

@@ -10,19 +10,27 @@ import TitlesContainer from "./containers/TitlesContainer";
 import Backpack from "./components/rentals/Backpack";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, login, logout } from './userSlice'
+import { fetchBackpack } from './backpackSlice';
 
 function App() {
 
     const user = useSelector((state) => state.user);
     const loggedIn = useSelector((state) => state.user.loggedIn)
     const [errorsList, setErrorsList ] = useState([])
-    const dispatch = useDispatch();
     const navigate = useNavigate()
+    const dispatch = useDispatch();
+    
+    const backpackItems = useSelector((state) => state.backpack.value.length);
 
+    const current = new Date();
+    const nextMonth = (current.getMonth()+2).toString()
+    const currentYear = current.getFullYear().toString()
+    const rentalMonth = (nextMonth + currentYear).toString()
 
     useEffect(() => {
         dispatch(fetchUser());
-        console.log("hello from dispatch")
+        dispatch(fetchBackpack(rentalMonth))
+
       }, [dispatch]);
 
       const handleSubmit = (loginCredentials) => {
@@ -59,7 +67,7 @@ function App() {
 
   return (
     <GeneralStyle>
-        <Navbar logoutUser={logoutUser} firstName={user.first_name} lastName={user.last_name} email={user.email}/>
+        <Navbar backpackItems={backpackItems} logoutUser={logoutUser} firstName={user.first_name} lastName={user.last_name} email={user.email}/>
         <Routes>
           <Route path="/login" element={<Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>} />
           <Route path="/signup" element={<Signup />} />

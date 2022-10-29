@@ -5,7 +5,6 @@ class RentalsController < ApplicationController
         newRental = Rental.find_or_create_by!(rental_params)
         
         if newRental
-            
             book_params_attributes = book_params[:book_rentals_attributes]
             book_param_id = book_params_attributes[:book_id]
             newBookRental = newRental.book_rentals.create(book_id: book_param_id)
@@ -17,15 +16,16 @@ class RentalsController < ApplicationController
     end
 
     def show
-        currentRental = Rental.includes(:books)
+        currentRental = Rental.includes(:books, :book_rentals)
         .joins(books: :title)
         .select('rentals.month',
         'rentals.id as id', 'rentals.receive_date', 'rentals.return_date',
-        'books.rented', 'books.condition',
-        'titles.title', 'titles.rating', 'titles.genre')
+        'books.rented', 'books.condition', 'books.id as book_id',
+        'titles.title', 'titles.rating', 'titles.genre', 'book_rentals.id as book_rental_id')
         .where(month: params[:id])
         render json: currentRental
     end
+
 
 
     # self
@@ -35,8 +35,6 @@ class RentalsController < ApplicationController
     #   'titles.genre', 'titles.author_id as author_id', 'titles.publication_date', 'count(books.rented) as count_available')
     # .group(
     #     'titles.title','titles.id', 'titles.rating', 'titles.genre', 'titles.author_id', 'titles.publication_date')
-
-
 
 
 
