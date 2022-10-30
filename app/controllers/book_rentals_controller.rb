@@ -2,7 +2,9 @@ class BookRentalsController < ApplicationController
 
     def destroy
         book_rental = BookRental.find_by_id(params[:id])
+        
         bookId = book_rental.book_id
+       
         book_rental.destroy
         book = Book.find_by_id(bookId).update(rented:false)
         head :no_content

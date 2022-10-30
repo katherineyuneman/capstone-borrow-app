@@ -47,6 +47,8 @@ const Navbar = ({logoutUser, backpackItems}) => {
                         <li><Link to="/backpack"><img className='backpack' src={backpack}/>{backpackItems}</Link></li>
                         
                     </ul>
+                    <br/>
+                    <span>{3 - backpackItems} spots left in your backpack!</span>
                 </nav>
             </div>
         </div>

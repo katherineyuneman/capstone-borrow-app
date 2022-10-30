@@ -9,7 +9,7 @@ class RentalsController < ApplicationController
             book_param_id = book_params_attributes[:book_id]
             newBookRental = newRental.book_rentals.create(book_id: book_param_id)
             book = Book.find_by_id(book_param_id)
-            book.update!(rented: true)
+            book.update(rented: true)
             render json: newRental, include: ['book_rentals']
         else render json: {errors: new_food.errors.full_messages}, status: :unprocessable_entity
         end
@@ -21,7 +21,7 @@ class RentalsController < ApplicationController
         .select('rentals.month',
         'rentals.id as id', 'rentals.receive_date', 'rentals.return_date',
         'books.rented', 'books.condition', 'books.id as book_id',
-        'titles.title', 'titles.rating', 'titles.genre', 'book_rentals.id as book_rental_id')
+        'titles.title', 'titles.rating', 'titles.genre','titles.image_url', 'book_rentals.id as book_rental_id')
         .where(month: params[:id])
         render json: currentRental
     end

@@ -40,40 +40,35 @@ const Backpack = () => {
       }, []);
 
       const handleRemoveCart = (book) => {
-
         fetch(`/book_rentals/${book.book_rental_id}`, {
             method: "DELETE",
           }).then((r) => {
             if (r.ok) {
+                setBookRentalArray((backpack) => backpack.filter((backPackBook) => backPackBook.book_id !== book.book_id));
                 dispatch(fetchBackpack(rentalMonth))
-                setBookRentalArray((backpack) => backpack.filter((book) => book.id !== book.book_id)
-                
-              );
+              ;
             }
           });
-
-
-        
-
-
-
-
       }
 
     
 console.log("book rental array!", bookRentalArray)
 
 const bookRentals = bookRentalArray.map(book => {
+    console.log("book:", book)
     return (
         <CardContainer>
-           <div className='container'>
+        <div className='container'>
         <div className='card'>
-        <li>{book.title}</li>
-        <li>{book.rating}</li>
-        <li>Return By: {book.return_date}</li>
-        <button onClick={() => handleRemoveCart(book)}>Remove from Cart</button>
+        <ul>
+            <img src={book.image_url} />
+            <h4>{book.title}</h4>
+            <li>Rating: {book.rating}</li>
+            <li>Return By: {book.return_date}</li>
+            <br/>
+            </ul>
+            <button onClick={() => handleRemoveCart(book)}>Remove from Cart</button>
         </div>
-        
         </div>
         </CardContainer>
     )
@@ -81,6 +76,7 @@ const bookRentals = bookRentalArray.map(book => {
 
   return (
     <div>
+        <h1>My Backpack</h1>
         {bookRentals}
     </div>
   )

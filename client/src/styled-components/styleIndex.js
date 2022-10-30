@@ -9,24 +9,33 @@ const GeneralStyle = styled.div`
 `
 
 const CardContainer = styled.div`
-  
+float: center;
+justify-content: center;
+  h1{
+    text-align: center;
+    background: white;
+    color: green;
+  }
   .card {
     /* Add shadows to create the "card" effect */
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     flex-wrap: wrap;
-    max-width: 180px;
-    height: 200px;
-    font-size: 14px;
+    width: 180px;
+    height: 400px;
+    font-size: 12px;
+    justify-content: center;
   };
   .container {
       padding: 2px 16px;
       /* display: block; */
       float: left;
-      height: 200px;
-      
+      height: auto;
     };
-  
+  img {
+    width: 100%;
+    height: 100%;
+  }
   .card button {
   border: none;
   outline: 0;
@@ -42,12 +51,24 @@ const CardContainer = styled.div`
 .card button:hover {
   opacity: 0.7;
   color: #fb5958;
+};
+.card .wishlist {
+  border: none;
+  outline: 0;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  width: 100%;
+  height: 5%;
 }
 
 
 `
 
 const NavBar = styled.div`
+margin-bottom: 3em;
 .backpack{
   width: 25%;
   height: 25%;
@@ -58,6 +79,7 @@ const NavBar = styled.div`
     background-color: #63D6E0;
   }; */
   nav {
+    
     float: right;
     margin-right: 0em;
     margin-left: 0em;

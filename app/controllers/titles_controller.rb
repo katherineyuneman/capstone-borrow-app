@@ -12,7 +12,6 @@ class TitlesController < ApplicationController
         render json: bookId
     end
 
-
     private
     # def title_params
     #     params.permit(:_json)
