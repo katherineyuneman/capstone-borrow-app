@@ -7,7 +7,7 @@ import Signup from './Signup';
 import Login from './Login';
 import Navbar from './Navbar';
 import TitlesContainer from "./containers/TitlesContainer";
-import Backpack from "./components/rentals/Backpack";
+import BackpackNext from "./components/rentals/BackpackNext";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, login, logout } from './userSlice'
 import { fetchBackpack } from './backpackSlice';
@@ -76,7 +76,7 @@ function App() {
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
 
           <Route path="/titles" element={<TitlesContainer />} />
-          <Route path="/backpack" element={<Backpack />} />
+          <Route path="/backpack" element={<BackpackNext />} />
           
         </Routes>
     </GeneralStyle>

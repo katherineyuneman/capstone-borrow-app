@@ -4,7 +4,7 @@ import { CardContainer } from '../../styled-components/styleIndex';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackpack } from '../../backpackSlice';
 
-const Backpack = () => {
+const BackpackNext = () => {
 
     const current = new Date();
     const nextMonth = (current.getMonth()+2).toString()
@@ -85,4 +85,4 @@ const bookRentals = () => bookRentalArray.map(book => {
   )
 }
 
-export default Backpack
+export default BackpackNext
