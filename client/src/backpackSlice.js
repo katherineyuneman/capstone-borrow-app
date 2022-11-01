@@ -48,7 +48,8 @@ const initialState = {
               console.log(Object.keys(action.payload).find(key => key==="error"))
               if (Object.keys(action.payload).find(key => key==="error") === "error") {
                   state.status='rejected'
-                  state.value=[]
+                  state.value= []
+                  state.atLimit= false
               } else {
                 if (action.payload.length < state.maxBooks){
                     state.value = action.payload

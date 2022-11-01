@@ -10,6 +10,7 @@ const TitleCard = ({title}) => {
 const [ countAvailable, setCountAvailable ] = useState(title.count_available)
 
 const user = useSelector((state) => state.user);
+const loggedIn = useSelector((state) => state.user.loggedIn);
 const backpackItems = useSelector((state) => state.backpack.value.length);
 const atLimit = useSelector((state) => state.backpack.atLimit)
 
@@ -101,7 +102,7 @@ const rentalCreation = (monthInfo, titleInfo) => {
 }
 
 
-console.log("title object", title)
+console.log("atLimit", loggedIn, atLimit)
     return(
       <>
       <CardContainer>
@@ -116,7 +117,7 @@ console.log("title object", title)
               <br />
               {title.rating}
               </ul>
-              {atLimit === false && (countAvailable > 0 || title.count_available > 0) ? <button onClick={handleClick}>Add to Cart</button> : <p className='wishlist'>Unavailable</p>}
+              {loggedIn && (atLimit === false && (countAvailable > 0 || title.count_available > 0)) ? <button onClick={handleClick}>Add to Cart</button> : <p className='wishlist'>Unavailable</p>}
             </div>
         </div>
       </CardContainer>

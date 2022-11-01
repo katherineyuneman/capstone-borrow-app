@@ -35,7 +35,6 @@ const Backpack = () => {
             } else {
               console.log("post-post fetch:", data)
               setBookRentalArray(data)
-              bookRentals(data)
                 // setFoodIngredientOptions([...foodIngredientOptions, data])
             }
         })
@@ -55,7 +54,6 @@ const Backpack = () => {
 
     
 console.log("book rental array!", bookRentalArray)
-
 
 const bookRentals = () => bookRentalArray.map(book => {
     console.log("book:", book)
@@ -82,7 +80,7 @@ const bookRentals = () => bookRentalArray.map(book => {
   return (
     <div>
         <h1>My Backpack</h1>
-        {bookRentals}
+        {bookRentalArray.length > 0 ? bookRentals() :null}
     </div>
   )
 }

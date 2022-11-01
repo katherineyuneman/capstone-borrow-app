@@ -48,7 +48,7 @@ const Navbar = ({logoutUser, backpackItems}) => {
                         
                     </ul>
                     <br/>
-                    <span>{3 - backpackItems} spots left in your backpack!</span>
+                    {loggedIn ? <span>{3 - backpackItems} spots left in your backpack!</span> : null}
                 </nav>
             </div>
         </div>
