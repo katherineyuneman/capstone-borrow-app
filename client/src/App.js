@@ -20,7 +20,9 @@ function App() {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     
-    const backpackItems = useSelector((state) => state.backpack.value.length);
+    const backpackItems = useSelector((state) => {console.log('backpackstate:', state.backpack.value) 
+    return state.backpack.value.length});
+
 
     const current = new Date();
     const nextMonth = (current.getMonth()+2).toString()

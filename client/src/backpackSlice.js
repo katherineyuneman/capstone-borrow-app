@@ -45,9 +45,10 @@ const initialState = {
             state.status='loading'
           })
           .addCase(fetchBackpack.fulfilled, (state, action) => {
-              console.log(Object.keys(action.payload).find(key => key==="errors"))
-              if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
+              console.log(Object.keys(action.payload).find(key => key==="error"))
+              if (Object.keys(action.payload).find(key => key==="error") === "error") {
                   state.status='rejected'
+                  state.value=[]
               } else {
                 if (action.payload.length < state.maxBooks){
                     state.value = action.payload

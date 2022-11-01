@@ -12,6 +12,7 @@ const Backpack = () => {
     const rentalMonth = (nextMonth + currentYear).toString()
 
     const [bookRentalArray, setBookRentalArray] = useState([])
+    const [errorsLis, setErrorsLis] = useState([])
 
     const backpack = useSelector((state) => {console.log(state.backpack)
         return state.backpack; });
@@ -29,11 +30,12 @@ const Backpack = () => {
         .then((data) => {
             if (data.errors){
               console.log(data.errors)
-                // const errorLis = data.errors.map((error, index) => <li key={index}>{index + 1}. {error}</li>)
-                // setCreateFoodErrorsList(errorLis)
+                const errorLis = data.errors.map((error, index) => <li key={index}>{index + 1}. {error}</li>)
+                setErrorsLis(errorLis)
             } else {
               console.log("post-post fetch:", data)
               setBookRentalArray(data)
+              bookRentals(data)
                 // setFoodIngredientOptions([...foodIngredientOptions, data])
             }
         })
@@ -54,9 +56,11 @@ const Backpack = () => {
     
 console.log("book rental array!", bookRentalArray)
 
-const bookRentals = bookRentalArray.map(book => {
+
+const bookRentals = () => bookRentalArray.map(book => {
     console.log("book:", book)
     return (
+        <div>
         <CardContainer>
         <div className='container'>
         <div className='card'>
@@ -71,6 +75,7 @@ const bookRentals = bookRentalArray.map(book => {
         </div>
         </div>
         </CardContainer>
+        </div>
     )
 })
 
