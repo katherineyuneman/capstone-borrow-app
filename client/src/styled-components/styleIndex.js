@@ -13,6 +13,7 @@ float: center;
 justify-content: center;
   h1{
     text-align: center;
+    justify-content: center;
     background: white;
     color: green;
   }
@@ -63,6 +64,26 @@ justify-content: center;
   width: 100%;
   height: 5%;
 }
+.backpackContainer button {
+  border: none;
+  outline: 0;
+  padding-top: 20px;
+  padding-bottom: 25px;
+  color: white;
+  background-color: gray;
+  text-align: center;
+  margin-left: 50%;
+  cursor: pointer;
+  float: center;
+  flex-wrap: wrap;
+  display: block;
+  /* width: 100%; */
+  height: 5%;
+}
+.backpackContainer button:hover {
+  opacity: 0.7;
+  color: #fb5958;
+};
 
 
 `

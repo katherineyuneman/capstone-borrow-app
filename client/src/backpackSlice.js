@@ -4,6 +4,7 @@ const initialState = {
     value: [], // user object
     maxBooks: 3,
     atLimit: false,
+    confirmed: false,
     status: "idle", // loading state
   };
 
@@ -19,8 +20,9 @@ const initialState = {
     name: "backpack",
     initialState,
     reducers: {
-        determineLimit(state, action) {
+        updateConfirmed(state, action) {
           console.log(action.payload)
+          state.confirmed = true
           // using createSlice lets us mutate state!
         //   if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
         //     state.status='rejected'
@@ -30,7 +32,12 @@ const initialState = {
         //       state.status='succeeded'
         //   }
           
+        }, removeConfirmed(state, action) {
+          console.log(action.payload)
+          if (state.confirmed === true){
+          state.confirmed = false
         }
+    },
         // ,
         // logout(state, action) {
         //     // using createSlice lets us mutate state!
@@ -72,5 +79,5 @@ const initialState = {
       }
     });
 
-  export const { determineLimit } = backpackSlice.actions
+  export const { updateConfirmed, removeConfirmed } = backpackSlice.actions
   export default backpackSlice.reducer;

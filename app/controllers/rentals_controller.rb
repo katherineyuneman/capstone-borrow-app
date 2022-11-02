@@ -19,7 +19,7 @@ class RentalsController < ApplicationController
         currentRental = current_user.rentals.includes(:books, :book_rentals)
         .joins(books: :title)
         .select('rentals.month',
-        'rentals.id as id', 'rentals.receive_date', 'rentals.return_date',
+        'rentals.id as id', 'rentals.receive_date', 'rentals.return_date', 'rentals.confirmed',
         'books.rented', 'books.condition', 'books.id as book_id',
         'titles.title', 'titles.rating', 'titles.genre','titles.image_url', 'book_rentals.id as book_rental_id')
         .where(month: params[:id])
@@ -27,6 +27,17 @@ class RentalsController < ApplicationController
             render json: currentRental
         else
             render json: { error: "Please login to view your backpack" }, status: :unauthorized
+        end
+    end
+
+    def update
+        
+        currentRental = current_user.rentals.find_by(month: params[:id])
+        if currentRental
+            currentRental.update(confirmed: true)
+            render json: currentRental
+        else
+            render json: { error: "You are not authorized to confirm this backpack" }, status: :unauthorized
         end
     end
 

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react/cjs/react.development';
 import { CardContainer } from '../../styled-components/styleIndex';
 import { useSelector, useDispatch } from "react-redux";
-import { fetchBackpack } from '../../backpackSlice';
+import { fetchBackpack, updateConfirmed, removeConfirmed } from '../../backpackSlice';
 
 const BackpackNext = () => {
 
@@ -11,17 +11,20 @@ const BackpackNext = () => {
     const currentYear = current.getFullYear().toString()
     const rentalMonth = (nextMonth + currentYear).toString()
 
-    const [bookRentalArray, setBookRentalArray] = useState([])
-    const [errorsLis, setErrorsLis] = useState([])
+    const [ bookRentalArray, setBookRentalArray ] = useState([])
+    const [ errorsLis, setErrorsLis ] = useState([])
+    const [ confirmed, setConfirmed ] = useState(false)
+    const [ noButtonText, setNoButtonText] = useState(true)
 
-    const backpack = useSelector((state) => {console.log(state.backpack)
+    const backpack = useSelector((state) => {console.log("backpack:",state.backpack)
         return state.backpack; });
     const atLimit = useSelector((state) => state.backpack.atLimit)
+    const confirmedRedux = useSelector((state) => state.backpack.confirmed)
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchBackpack(rentalMonth));
-        console.log("hello from dispatch")
       }, [dispatch]);
 
     useEffect(() => {
@@ -35,6 +38,12 @@ const BackpackNext = () => {
             } else {
               console.log("post-post fetch:", data)
               setBookRentalArray(data)
+              setConfirmed(data.confirmed)
+              if (data.length < 3){
+                setNoButtonText('Please add another book to your backpack before confirming.')
+              } else {
+                setNoButtonText('Backpack confirmed!')
+               }
                 // setFoodIngredientOptions([...foodIngredientOptions, data])
             }
         })
@@ -47,9 +56,30 @@ const BackpackNext = () => {
             if (r.ok) {
                 setBookRentalArray((backpack) => backpack.filter((backPackBook) => backPackBook.book_id !== book.book_id));
                 dispatch(fetchBackpack(rentalMonth))
+                dispatch(removeConfirmed())
+                setConfirmed(false)
+                setNoButtonText('Please add another book to your backpack before confirming.')
               ;
             }
           });
+      }
+
+      const handleConfirmBackpack = () => {
+        fetch(`/rentals/${rentalMonth}`, {
+          method: 'PATCH',
+          headers: { 'Content-type': 'application/json'},
+          body: JSON.stringify({confirmed: true})
+      })
+      .then(resp => resp.json())
+      .then((user) => {
+          if (user.errors){
+              setErrorsLis(user.errors)
+          } else {
+            setConfirmed(true)
+            updateConfirmed(true)
+              // navigate('/')
+          }
+      })
       }
 
     
@@ -77,11 +107,16 @@ const bookRentals = () => bookRentalArray.map(book => {
     )
 })
 
+
   return (
-    <div>
+      <CardContainer>
         <h1>My Backpack</h1>
         {bookRentalArray.length > 0 ? bookRentals() :null}
-    </div>
+        <br />
+        <div className='backpackContainer'>
+        {confirmed || confirmedRedux || bookRentalArray.length < 3 ? <h4>{noButtonText}</h4> : <button onClick={handleConfirmBackpack}>Confirm Backpack</button>}
+        </div>
+        </CardContainer>
   )
 }
 
