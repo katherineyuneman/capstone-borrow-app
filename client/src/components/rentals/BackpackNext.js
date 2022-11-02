@@ -4,7 +4,7 @@ import { CardContainer } from '../../styled-components/styleIndex';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackpack, updateConfirmed, removeConfirmed } from '../../backpackSlice';
 
-const BackpackNext = () => {
+const BackpackNext = ({loggedIn}) => {
 
     const current = new Date();
     const nextMonth = (current.getMonth()+2).toString()
@@ -39,12 +39,14 @@ const BackpackNext = () => {
               console.log("post-post fetch:", data)
               setBookRentalArray(data)
               setConfirmed(data.confirmed)
-              if (data.length < 3){
-                setNoButtonText('Please add another book to your backpack before confirming.')
-              } else {
-                setNoButtonText('Backpack confirmed!')
+              if (data.length ===0 ){
+                setNoButtonText('No items in your backpack.')
+              }
+                else if (data.length < 3){
+                  setNoButtonText('Please add another book to your backpack before confirming.')
+              } else if (data.length > 0)
+               {setNoButtonText('Backpack confirmed!')
                }
-                // setFoodIngredientOptions([...foodIngredientOptions, data])
             }
         })
       }, []);
@@ -107,16 +109,41 @@ const bookRentals = () => bookRentalArray.map(book => {
     )
 })
 
+const handleRemoveAll = () =>{
+  fetch(`/rentals/${rentalMonth}`, {
+    method: "DELETE",
+  }).then((r) => {
+    if (r.ok) {
+      setBookRentalArray([])
+      setNoButtonText('No items in your backpack.')
+        // setBookRentalArray((backpack) => backpack.filter((backPackBook) => backPackBook.book_id !== book.book_id));
+        // dispatch(fetchBackpack(rentalMonth))
+        // dispatch(removeConfirmed())
+        // setConfirmed(false)
+        // setNoButtonText('Please add another book to your backpack before confirming.')
+      ;
+    }
+  });
+}
 
+if (loggedIn) {
   return (
       <CardContainer>
+        <div className='backpackContainer'>
         <h1>My Backpack</h1>
+        {bookRentalArray.length > 0 ? <button onClick={handleRemoveAll}>Remove all from backpack</button> : null}
+        </div>
         {bookRentalArray.length > 0 ? bookRentals() :null}
         <br />
         <div className='backpackContainer'>
         {confirmed || confirmedRedux || bookRentalArray.length < 3 ? <h4>{noButtonText}</h4> : <button onClick={handleConfirmBackpack}>Confirm Backpack</button>}
         </div>
         </CardContainer>
+  )}
+  else return (
+    <CardContainer>
+        <h1>Please login to view your backpack</h1>
+    </CardContainer>
   )
 }
 

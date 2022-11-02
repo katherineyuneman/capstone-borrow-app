@@ -38,13 +38,6 @@ const initialState = {
           state.confirmed = false
         }
     },
-        // ,
-        // logout(state, action) {
-        //     // using createSlice lets us mutate state!
-        //     state.loggedIn = false
-        //     state.value = {}
-        //     state.status='succeeded'
-        //   }
     },
       extraReducers: (builder) => {
           builder
@@ -52,7 +45,6 @@ const initialState = {
             state.status='loading'
           })
           .addCase(fetchBackpack.fulfilled, (state, action) => {
-              console.log(Object.keys(action.payload).find(key => key==="error"))
               if (Object.keys(action.payload).find(key => key==="error") === "error") {
                   state.status='rejected'
                   state.value= []
@@ -62,10 +54,14 @@ const initialState = {
                     state.value = action.payload
                     state.atLimit = false
                     state.status='succeeded' 
+                    if (action.payload.length > 1){
+                    state.confirmed = action.payload[0].confirmed
+                  }
                   } else {
                     state.value = action.payload
                     state.atLimit = true
                     state.status = 'succeeded'
+                    state.confirmed = action.payload[0].confirmed
                   }
                 }
           })
@@ -75,7 +71,6 @@ const initialState = {
             state.status='rejected'
         }
           })
-            
       }
     });
 

@@ -76,7 +76,7 @@ function App() {
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
 
           <Route path="/titles" element={<TitlesContainer />} />
-          <Route path="/backpack" element={<BackpackNext />} />
+          <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn}/>} />
           
         </Routes>
     </GeneralStyle>

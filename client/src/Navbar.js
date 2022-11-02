@@ -44,7 +44,7 @@ const Navbar = ({logoutUser, backpackItems}) => {
                         </li>
                         <li><Link to="/me">My Account</Link></li>
                         {loggedIn ? <li><Link to="/logout" onClick={logoutUser}>Logout</Link></li> : <><li><Link to="/login">Login</Link></li><li><Link to="/signup">Signup</Link> </li></>}
-                        <li><Link to="/backpack"><img className='backpack' src={backpack}/>{backpackItems}</Link></li>
+                        {loggedIn ? <li><Link to="/backpack"><img className='backpack' src={backpack}/>{backpackItems}</Link></li>:null}
                         
                     </ul>
                     <br/>

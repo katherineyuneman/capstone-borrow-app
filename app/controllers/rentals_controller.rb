@@ -41,9 +41,23 @@ class RentalsController < ApplicationController
         end
     end
 
+    def destroy
+        currentRental = current_user.rentals.find_by(month: params[:id])
+        if currentRental
+            currentRental.books.map { |book| book.update(rented: false)}
+            currentRental.destroy
+            head :no_content
+        else
+        end
+    end
+
     private
     def current_user
         @current_user = User.find_by(id: session[:user_id])
+    end
+
+    def current_rental
+        currentRental = @current_user.rentals.find_by(month: params[:id])
     end
 
     def rental_params
@@ -53,5 +67,9 @@ class RentalsController < ApplicationController
     def book_params
         params.require(:rental).permit(:month, :receive_date, :return_date, :user_id, book_rentals_attributes: [:book_id])
     end
+
+    # def updateBookRented
+    #     book_rentals.map { |book| book.rented=false}
+    # end
 
 end
