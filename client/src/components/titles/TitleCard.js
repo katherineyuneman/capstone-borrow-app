@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react/cjs/react.development'
 import { CardContainer } from '../../styled-components/styleIndex'
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUser } from '../../userSlice';
-import { fetchBackpack } from '../../backpackSlice';
+import { fetchBackpack, setAtLimit } from '../../backpackSlice';
 
-const TitleCard = ({title}) => {
+const TitleCard = ({title, setAtLimit}) => {
 
 const [ countAvailable, setCountAvailable ] = useState(title.count_available)
 
@@ -26,6 +26,7 @@ const currentYear = current.getFullYear().toString()
 const rentalMonth = nextMonth + currentYear
 
 const [ bookId, setBookId ] = useState()
+const [ localAtLimit, setLocalAtLimit ] = useState(atLimit)
 
 useEffect(() => {
   dispatch(fetchUser());
@@ -38,6 +39,9 @@ const handleClick = () => {
   if (countAvailable > 0) {
     const newCount = countAvailable - 1
     setCountAvailable(newCount)
+    if (newCount === 0){
+      setLocalAtLimit(true)
+    }
 
     fetch('/titles_books', {
       method: 'POST',
@@ -57,15 +61,17 @@ const handleClick = () => {
             console.log("post-post fetch:", data)
             setBookId(data)
             rentalCreation(rentalMonth, data)
-            
-              // setCreateFoodErrorsList([])
-              // setDisplayFoodForm(false)
-              // setFoodIngredientOptions([...foodIngredientOptions, data])
           }
       })
 
-  } else setCountAvailable(0)
+  } else {
+    setCountAvailable(0)
+    // dispatch(setAtLimit());
+    setLocalAtLimit(true)
+    
+  }
 }
+
 
 const rentalCreation = (monthInfo, titleInfo) => {
   const rental = {
@@ -117,7 +123,7 @@ console.log("atLimit", loggedIn, atLimit)
               <br />
               {title.rating}
               </ul>
-              {loggedIn && (atLimit === false && (countAvailable > 0 || title.count_available > 0)) ? <button onClick={handleClick}>Add to Cart</button> : <p className='wishlist'>Unavailable</p>}
+              {loggedIn && localAtLimit === false && (atLimit === false && (countAvailable > 0 || title.count_available > 0)) ? <button onClick={handleClick}>Add to Cart</button> : <p className='wishlist'>Unavailable</p>}
             </div>
         </div>
       </CardContainer>

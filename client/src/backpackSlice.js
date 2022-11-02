@@ -37,7 +37,10 @@ const initialState = {
           if (state.confirmed === true){
           state.confirmed = false
         }
-    },
+        },
+          setAtLimit(state, action){
+            state.atLimit = true
+          },
     },
       extraReducers: (builder) => {
           builder

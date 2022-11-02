@@ -6,7 +6,7 @@ const TitlesList = ({titles}) => {
   const eachTitle = titles.map(title => {
     return (
     <div>
-      <TitleCard title={title}/>
+      <TitleCard title={title} />
       </div>)
   })
 

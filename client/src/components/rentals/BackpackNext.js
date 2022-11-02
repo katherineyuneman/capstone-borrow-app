@@ -4,7 +4,7 @@ import { CardContainer } from '../../styled-components/styleIndex';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackpack, updateConfirmed, removeConfirmed } from '../../backpackSlice';
 
-const BackpackNext = ({loggedIn}) => {
+const BackpackNext = ({loggedIn, backpackItems}) => {
 
     const current = new Date();
     const nextMonth = (current.getMonth()+2).toString()
@@ -116,11 +116,7 @@ const handleRemoveAll = () =>{
     if (r.ok) {
       setBookRentalArray([])
       setNoButtonText('No items in your backpack.')
-        // setBookRentalArray((backpack) => backpack.filter((backPackBook) => backPackBook.book_id !== book.book_id));
-        // dispatch(fetchBackpack(rentalMonth))
-        // dispatch(removeConfirmed())
-        // setConfirmed(false)
-        // setNoButtonText('Please add another book to your backpack before confirming.')
+      dispatch(fetchBackpack(rentalMonth))
       ;
     }
   });
