@@ -8,6 +8,29 @@ const GeneralStyle = styled.div`
   font-size: 18px;
 `
 
+const RentalContainerStyle = styled.div`
+float: center;
+justify-content: center;
+  h1{
+    text-align: center;
+    justify-content: center;
+    background: white;
+    color: green;
+  };
+  .rental {
+    /* Add shadows to create the "card" effect */
+    margin-left: 3em;
+    margin-right: 3em;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    flex-wrap: wrap;
+    width: 90%;
+    height: 400px;
+    font-size: 12px;
+    justify-content: center;
+  };
+  ` 
+
 const CardContainer = styled.div`
 float: center;
 justify-content: center;
@@ -279,7 +302,7 @@ margin-bottom: 3em;
 `
 
 export {
-  GeneralStyle, NavBar, CardContainer
+  GeneralStyle, NavBar, CardContainer, RentalContainerStyle
 }
 
 

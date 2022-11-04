@@ -1,9 +1,13 @@
 class RentalsController < ApplicationController
-
+    before_action :authorize
+    
+    def index
+        user_rentals = current_user.rentals.sorted_rentals.where(confirmed: true).includes(:book_rentals)
+        render json: user_rentals, include: ['book_rentals']
+    end
+    
     def create
-        
         newRental = current_user.rentals.find_or_create_by!(rental_params)
-        
         if newRental
             book_params_attributes = book_params[:book_rentals_attributes]
             book_param_id = book_params_attributes[:book_id]
@@ -52,6 +56,10 @@ class RentalsController < ApplicationController
     end
 
     private
+    def authorize
+        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+      end
+
     def current_user
         @current_user = User.find_by(id: session[:user_id])
     end

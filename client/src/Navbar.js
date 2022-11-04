@@ -42,7 +42,7 @@ const Navbar = ({logoutUser, backpackItems}) => {
                                 <li><a href="/authors">Authors</a></li>
                             </ul> : null }
                         </li>
-                        <li><Link to="/me">My Account</Link></li>
+                        <li><Link to="/rentals">My Account</Link></li>
                         {loggedIn ? <li><Link to="/logout" onClick={logoutUser}>Logout</Link></li> : <><li><Link to="/login">Login</Link></li><li><Link to="/signup">Signup</Link> </li></>}
                         {loggedIn ? <li><Link to="/backpack"><img className='backpack' src={backpack}/>{backpackItems}</Link></li>:null}
                         
