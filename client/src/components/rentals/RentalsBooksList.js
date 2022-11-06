@@ -1,9 +1,11 @@
 import React from 'react'
 
-const RentalsBooksList = () => {
+const RentalsBooksList = ({rental}) => {
+    
   return (
     <div>
-      
+        {rental.title}
+        <img src={rental.image_url}/>
     </div>
   )
 }

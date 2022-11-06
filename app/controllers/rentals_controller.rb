@@ -2,8 +2,16 @@ class RentalsController < ApplicationController
     before_action :authorize
     
     def index
-        user_rentals = current_user.rentals.sorted_rentals.where(confirmed: true).includes(:book_rentals)
-        render json: user_rentals, include: ['book_rentals']
+        user_rentals = current_user.rentals.sorted_rentals.where(confirmed: true)
+        # .select('rentals.month',
+        # 'rentals.id as id', 'rentals.receive_date', 'rentals.return_date', 'rentals.confirmed',
+        # 'books.rented', 'books.condition', 'books.id as book_id',
+        # 'titles.title', 'titles.rating', 'titles.genre','titles.image_url', 'book_rentals.id as book_rental_id')
+        if user_rentals
+            render json: user_rentals
+        else
+            render json: {errors: newRental.errors.full_messages}, status: :unprocessable_entity
+        end
     end
     
     def create
@@ -15,7 +23,7 @@ class RentalsController < ApplicationController
             book = Book.find_by_id(book_param_id)
             book.update(rented: true)
             render json: newRental, include: ['book_rentals']
-        else render json: {errors: new_food.errors.full_messages}, status: :unprocessable_entity
+        else render json: {errors: newRental.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
@@ -58,6 +66,16 @@ class RentalsController < ApplicationController
     private
     def authorize
         return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :user_id
+      end
+
+      def getTitles
+        book_titles = Book.titles.includes(:title)
+        # user_rentals = current_user.rentals.sorted_rentals.where(confirmed: true).includes(:books).joins(books: :title)
+        # .select('rentals.month',
+        # 'rentals.id as id', 'rentals.receive_date', 'rentals.return_date', 'rentals.confirmed',
+        # 'books.rented', 'books.condition', 'books.id as book_id',
+        # 'titles.title', 'titles.rating', 'titles.genre','titles.image_url', 'book_rentals.id as book_rental_id')
+        return render json: book_titles
       end
 
     def current_user

@@ -11,7 +11,7 @@ import BackpackNext from "./components/rentals/BackpackNext";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, login, logout } from './userSlice'
 import { fetchBackpack } from './backpackSlice';
-import RentalsContainer from "./containers/RentalsContainer";
+import RentalsList from "./components/rentals/RentalsList";
 
 function App() {
 
@@ -75,7 +75,7 @@ function App() {
           <Route path="/login" element={<Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
-          <Route path="/rentals" element={<RentalsContainer />} />
+          <Route path="/rentals" element={<RentalsList />} />
           <Route path="/titles" element={<TitlesContainer />} />
           <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>} />
           
