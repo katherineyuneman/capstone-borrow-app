@@ -29,13 +29,13 @@ const Navbar = ({logoutUser, backpackItems}) => {
                 </div>
                 <nav>
                     <ul className="nav-list">
-                        <li><Link onClick={()=> setDisplayRentals(!displayRentals)}>Rentals▾</Link>
+                        {/* <li><Link onClick={()=> setDisplayRentals(!displayRentals)}>Rentals▾</Link>
                         {displayRentals ? <ul className="nav-dropdown-display">
                                 <li><a href="/about" >How it Works</a></li>
                                 <li><a href="/plans">Plans</a></li>
                             </ul> : null}
                             
-                        </li>
+                        </li> */}
                         <li><Link onClick={() => setDisplayBooks(!displayBooks)}>Books▾</Link>
                             {displayBooks ? <ul className="nav-dropdown-display">
                                 <li><a href="/titles">All Books</a></li>

@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchUser, login, logout } from './userSlice'
 import { fetchBackpack } from './backpackSlice';
 import RentalsList from "./components/rentals/RentalsList";
+import RentalsBooksList from "./components/rentals/RentalsBooksList";
 
 function App() {
 
@@ -78,6 +79,7 @@ function App() {
           <Route path="/rentals" element={<RentalsList />} />
           <Route path="/titles" element={<TitlesContainer />} />
           <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>} />
+          <Route path="rentals/:id" element={<RentalsBooksList loggedIn={loggedIn}/>} />
           
         </Routes>
     </GeneralStyle>

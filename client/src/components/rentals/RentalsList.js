@@ -38,13 +38,14 @@ const RentalsList = () => {
                     Return Date: {rental.return_date}
                     <br />
                     <br />
-                    <Link to="/backpack"><img className='backpack' src={backpack}/></Link>
+                    <Link to={`/rentals/${rental.month}`}><img className='backpack' src={backpack}/></Link>
                 </div>
             )
         })
 
   return (
     <RentalContainerStyle>  
+        <h1>Order History</h1>
         {eachMonthRental}
     </RentalContainerStyle>
   )
