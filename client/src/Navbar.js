@@ -4,6 +4,7 @@ import { NavBar } from './styled-components/styleIndex'
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUser } from './userSlice'
 import backpack from './styled-components/backpack.png'
+import { Banner } from './styled-components/styleIndex';
 
 const Navbar = ({logoutUser, backpackItems}) => {
 
@@ -21,6 +22,7 @@ const Navbar = ({logoutUser, backpackItems}) => {
       }, [dispatch]);
 
   return (
+    <>
     <NavBar>
         <div className="navigation">
             <div className="nav-container">
@@ -29,30 +31,28 @@ const Navbar = ({logoutUser, backpackItems}) => {
                 </div>
                 <nav>
                     <ul className="nav-list">
-                        {/* <li><Link onClick={()=> setDisplayRentals(!displayRentals)}>Rentals▾</Link>
-                        {displayRentals ? <ul className="nav-dropdown-display">
-                                <li><a href="/about" >How it Works</a></li>
-                                <li><a href="/plans">Plans</a></li>
-                            </ul> : null}
-                            
-                        </li> */}
-                        <li><Link onClick={() => setDisplayBooks(!displayBooks)}>Books▾</Link>
-                            {displayBooks ? <ul className="nav-dropdown-display">
-                                <li><a href="/titles">All Books</a></li>
-                                <li><a href="/authors">Authors</a></li>
-                            </ul> : null }
-                        </li>
-                        <li><Link to="/rentals">My Account</Link></li>
-                        {loggedIn ? <li><Link to="/logout" onClick={logoutUser}>Logout</Link></li> : <><li><Link to="/login">Login</Link></li><li><Link to="/signup">Signup</Link> </li></>}
-                        {loggedIn ? <li><Link to="/backpack"><img className='backpack' src={backpack}/>{backpackItems}</Link></li>:null}
+                        <ul>
+                            <li><Link to="/titles">Books</Link></li>
+                            <li><Link to="/rentals">My Account</Link></li>
+                            {loggedIn ? <li><Link to="/logout" onClick={logoutUser}>Logout</Link></li> : <ul className='backpack'><li ><Link to="/login">Login</Link></li><li><Link to="/signup">Signup</Link> </li></ul>}
+                            {loggedIn ? <li className='backpack'><Link to="/backpack"><img src={backpack}/>{backpackItems}</Link></li>:<li></li>}
+                        <br />
+                        </ul>
+                        </ul>
                         
-                    </ul>
-                    <br/>
-                    {loggedIn ? <span>{3 - backpackItems} spots left in your backpack!</span> : null}
+                    
+                   
                 </nav>
             </div>
+            
         </div>
     </NavBar>
+    <br/>
+    <br/>
+    <Banner>
+        {loggedIn ? <span className='span'>{3 - backpackItems} spots left in your backpack!</span> : null}  
+    </Banner>
+    </>
   )
 }
 

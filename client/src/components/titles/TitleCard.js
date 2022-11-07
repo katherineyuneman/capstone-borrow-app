@@ -114,15 +114,18 @@ console.log("atLimit", loggedIn, atLimit)
       <CardContainer>
         <div className='container'>
         <div className='card'>
-              <ul>
+              <ul className='title'>
               <img src={title.image_url} alt={title.title}/>
               <br />
               <h4>{title.title}</h4>
               <br />
-              {title.author.first_name} {title.author.last_name}
+              </ul>
+              <ul className='author'>{title.author.first_name} {title.author.last_name}
               <br />
               {title.rating}
+
               </ul>
+          
               {loggedIn && localAtLimit === false && (atLimit === false && (countAvailable > 0 || title.count_available > 0)) ? <button onClick={handleClick}>Add to Cart</button> : <p className='wishlist'>Unavailable</p>}
             </div>
         </div>

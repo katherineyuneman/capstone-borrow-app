@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect } from 'react/cjs/react.development'
 import TitlesList from '../components/titles/TitlesList'
 import { CardContainer } from '../styled-components/styleIndex'
@@ -27,9 +26,8 @@ const TitlesContainer = ({}) => {
   return (
     
       <CardContainer>
-        
+        <h1>Books</h1>
         <TitlesList titles={titles}/>
-       
       </CardContainer>
   )
 }

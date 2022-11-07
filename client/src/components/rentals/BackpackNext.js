@@ -94,9 +94,11 @@ const bookRentals = () => bookRentalArray.map(book => {
         <CardContainer>
         <div className='container'>
         <div className='card'>
-        <ul>
+        <ul className='title'>
             <img src={book.image_url} />
             <h4>{book.title}</h4>
+            </ul>
+            <ul className='author'>
             <li>Rating: {book.rating}</li>
             <li>Return By: {book.return_date}</li>
             <br/>
@@ -128,11 +130,16 @@ if (loggedIn) {
         <div className='backpackContainer'>
         <h1>My Backpack</h1>
         {bookRentalArray.length > 0 ? <button onClick={handleRemoveAll}>Remove all from backpack</button> : null}
+        <br/>
+        {confirmed || confirmedRedux || bookRentalArray.length < 3 ? <h4>{noButtonText}</h4> : <button onClick={handleConfirmBackpack}>Confirm Backpack</button>}
         </div>
+        <br/>
         {bookRentalArray.length > 0 ? bookRentals() :null}
         <br />
+        
         <div className='backpackContainer'>
-        {confirmed || confirmedRedux || bookRentalArray.length < 3 ? <h4>{noButtonText}</h4> : <button onClick={handleConfirmBackpack}>Confirm Backpack</button>}
+  
+        
         </div>
         </CardContainer>
   )}

@@ -30,7 +30,7 @@ margin-right: auto;
     transition: 0.3s;
     flex-wrap: wrap;
     width: 50%;
-    height: 180px;
+    height: 150px;
     font-size: 12px;
     justify-content: center;
   };
@@ -41,6 +41,8 @@ margin-right: auto;
   ` 
 
 const CardContainer = styled.div`
+/* margin-top: 75px; */
+margin-left: 75px;
 float: center;
 justify-content: center;
   h1{
@@ -51,25 +53,40 @@ justify-content: center;
   }
   .card {
     /* Add shadows to create the "card" effect */
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     flex-wrap: wrap;
     width: 180px;
     height: 400px;
     font-size: 12px;
     justify-content: center;
+
   };
   .container {
-      padding: 2px 16px;
+      padding: 2px 25px;
       /* display: block; */
       float: left;
       height: auto;
+      padding-bottom: 25px;
     };
-  img {
-    width: 100%;
-    height: 100%;
+    .title{
+      height: 275px;
+      margin: auto;
+      justify-content: center;
+      img {
+      margin: auto;
+      justify-content: center;
+      width: 100%;
+      height: auto;
   }
+  .author{
+        height: 150px;
+        /* margin: auto;
+        justify-content: center; */
+      }
+    }
   .card button {
+  margin-bottom: 1em;
   border: none;
   outline: 0;
   padding-top: 20px;
@@ -79,7 +96,6 @@ justify-content: center;
   text-align: center;
   cursor: pointer;
   width: 100%;
-  height: 5%;
 }
 .card button:hover {
   opacity: 0.7;
@@ -91,10 +107,9 @@ justify-content: center;
   padding-top: 20px;
   padding-bottom: 25px;
   color: white;
-  background-color: #000;
+  background-color: gray;
   text-align: center;
   width: 100%;
-  height: 5%;
 }
 .backpackContainer button {
   border: none;
@@ -104,7 +119,8 @@ justify-content: center;
   color: white;
   background-color: gray;
   text-align: center;
-  margin-left: 50%;
+  margin: auto;
+  justify-content: center;
   cursor: pointer;
   float: center;
   flex-wrap: wrap;
@@ -116,29 +132,32 @@ justify-content: center;
   opacity: 0.7;
   color: #fb5958;
 };
-
-
+`
+const Banner = styled.div`
+padding: 20px;
+width: 100%;
+background-color: #fb5958;
+margin: auto;
+text-align: center;
+color: white
 `
 
 const NavBar = styled.div`
-margin-bottom: 3em;
-.backpack{
-  width: 25%;
-  height: 25%;
-  float: center;
-  padding: 0em;
-};
-  /* body {
-    background-color: #63D6E0;
-  }; */
+  /* padding: 5px; */
+  margin-bottom:-1em;
+  .backpack{
+    margin-right: -6em;
+    float: right;
+    img {
+      width: 25%;
+      /* height: 25%; */
+    }
+  };
   nav {
-    
     float: right;
     margin-right: 0em;
     margin-left: 0em;
-    background-color: #63D6E0;
 }
-
   nav ul {
     list-style: none;
     margin: 0;
@@ -148,14 +167,11 @@ margin-bottom: 3em;
     float: left;
     position: relative 30px;
     /* background-color: #63D6E0; */
-    /* padding: 0em;
-    margin-right: 0em; */
   }
   nav ul li a {
     display: block;
     padding: 0 20px;
-    
-    line-height: 70px;
+    line-height: 75px;
     background: #ffffff;
     color: #463f3f;
     text-decoration: none;
@@ -311,7 +327,7 @@ margin-bottom: 3em;
 `
 
 export {
-  GeneralStyle, NavBar, CardContainer, RentalContainerStyle
+  GeneralStyle, NavBar, CardContainer, RentalContainerStyle, Banner,
 }
 
 
