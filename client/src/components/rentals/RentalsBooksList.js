@@ -50,7 +50,8 @@ const RentalsBooksList = () => {
             <CardContainer>
             <div className='container'>
             <div className='card'>
-            <ul>
+
+                <ul className='title'>
                 <img src={book.image_url} />
                 <h4>{book.title}</h4>
                 <li>Rating: {book.rating}</li>

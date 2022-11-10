@@ -30,7 +30,7 @@ margin-right: auto;
     transition: 0.3s;
     flex-wrap: wrap;
     width: 50%;
-    height: 150px;
+    height: 180px;
     font-size: 12px;
     justify-content: center;
   };
