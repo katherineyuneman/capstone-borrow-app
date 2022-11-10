@@ -146,7 +146,7 @@ const NavBar = styled.div`
   /* padding: 5px; */
   margin-bottom:-1em;
   .backpack{
-    margin-right: -6em;
+    margin-right: -3em;
     float: right;
     img {
       width: 25%;
@@ -313,7 +313,8 @@ const NavBar = styled.div`
 
   .brand {
     position: absolute;
-    padding-left: 20px;
+    padding-left: 5px;
+    padding-top: 5px;
     float: left;
     line-height: 70px;
     font-size: 3em;

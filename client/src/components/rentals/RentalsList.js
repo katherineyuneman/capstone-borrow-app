@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import backpack from '../../styled-components/backpack.png'
 
 
-const RentalsList = () => {
+const RentalsList = ({loggedIn}) => {
     const [ rentals, setRentals ] = useState([])
 
     const monthWritten = ['January', 'February', 'March', 'April', 'May',
@@ -24,9 +24,9 @@ const RentalsList = () => {
         })
       }, []);
 
-      
-
-    const eachMonthRental = rentals.map(rental => {
+let eachMonthRental 
+ if (loggedIn) {
+    eachMonthRental = rentals.map(rental => {
         const updatedDate = new Date(rental.receive_date)
         const formattedMonth = monthWritten[updatedDate.getMonth()+1]
         const year = updatedDate.getFullYear()
@@ -42,6 +42,9 @@ const RentalsList = () => {
                 </div>
             )
         })
+    } else {
+        return (<h4>Please login to view account.</h4>)
+    }
 
   return (
     <RentalContainerStyle>  
