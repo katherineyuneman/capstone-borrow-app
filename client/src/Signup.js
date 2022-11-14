@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux";
+import { login } from './userSlice'
 
 const Signup = () => {
+
+    const user = useSelector((state) => state.user);
+    const loggedIn = useSelector((state) => state.user.loggedIn)
+    const dispatch = useDispatch();
 
     const [signupCredentials, setSignupCredentials] = useState ({
         email:"",
@@ -43,7 +49,7 @@ const Signup = () => {
                 const errorLis = user.errors.map((e) => <li>{e}</li>)
                 setErrorsList(errorLis)
             } else {
-                // signUp(user)
+                dispatch(login(user))
                 navigate('/')
             }
         })
