@@ -2,7 +2,6 @@ databases:
   - name: borrow_app
     databaseName: borrow_app
     user: borrow_app
-    plan: free
 
 services:
   - type: web
