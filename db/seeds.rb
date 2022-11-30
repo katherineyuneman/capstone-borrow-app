@@ -10,7 +10,7 @@ user1 = User.create(email: 'smith@johns.com', password_digest: '1234', first_nam
 user2 = User.create(email: 'harry@potter.com', password_digest: '1234', first_name: 'Harry', last_name: 'Potter' )
 
 author1 = Author.create(first_name: 'Michelle', last_name: 'Obama')
-Title.create(author_id: 2, description: 'The Light we Carry: Overcoming in Uncertain Times', rating: 5, genre: 'Non-Ficton', publication_date: '2022-11-15')
+Title.create(author_id: 2, title: 'The Light we Carry: Overcoming in Uncertain Times', rating: 5, genre: 'Non-Ficton', publication_date: '2022-11-15')
 
 
 # title1=Title.find_by_id(3)
