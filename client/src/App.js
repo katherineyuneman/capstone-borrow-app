@@ -76,7 +76,9 @@ function App() {
           <Route path="/login" element={<Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
-          <Route path="/rentals" element={<RentalsList loggedIn={loggedIn}/>} />
+          <Route path="/rentals">
+              <RentalsList loggedIn={loggedIn} />
+              </Route>
           <Route path="/titles" element={<TitlesContainer />} />
           <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>} />
           <Route path="rentals/:id" element={<RentalsBooksList loggedIn={loggedIn}/>} />

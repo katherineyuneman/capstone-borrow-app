@@ -4,7 +4,6 @@ import RentalsBooksList from './RentalsBooksList'
 import { Link } from 'react-router-dom'
 import backpack from '../../styled-components/backpack.png'
 
-
 const RentalsList = ({loggedIn}) => {
     const [ rentals, setRentals ] = useState([])
 
