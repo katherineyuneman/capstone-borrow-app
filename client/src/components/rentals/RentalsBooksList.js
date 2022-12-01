@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react/cjs/react.development'
+import { useState, useEffect } from 'react'
 import { CardContainer, RentalContainerStyle } from '../../styled-components/styleIndex'
 
 const RentalsBooksList = () => {

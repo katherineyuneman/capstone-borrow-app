@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react/cjs/react.development'
+import React, { useState, useEffect } from 'react'
 import TitlesList from '../components/titles/TitlesList'
 import { CardContainer } from '../styled-components/styleIndex'
 

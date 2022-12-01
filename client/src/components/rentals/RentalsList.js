@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react/cjs/react.development'
+import React, { useEffect, useState } from 'react'
 import { CardContainer, RentalContainerStyle } from '../../styled-components/styleIndex'
 import RentalsBooksList from './RentalsBooksList'
 import { Link } from 'react-router-dom'

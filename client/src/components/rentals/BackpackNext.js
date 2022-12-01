@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react/cjs/react.development';
+import { useState, useEffect } from 'react';
 import { CardContainer } from '../../styled-components/styleIndex';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBackpack, updateConfirmed, removeConfirmed } from '../../backpackSlice';
