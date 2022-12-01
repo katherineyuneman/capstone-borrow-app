@@ -73,15 +73,28 @@ function App() {
     <GeneralStyle>
         <Navbar backpackItems={backpackItems} logoutUser={logoutUser} firstName={user.first_name} lastName={user.last_name} email={user.email}/>
         <Routes>
-          <Route path="/login" element={<Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/" element={<Home user={user} loggedIn={loggedIn}/>} />
+          <Route path="/login">
+          <Login loggedIn={loggedIn} handleSubmit={handleSubmit} errorsList={errorsList}/>
+              </Route> 
+          <Route path="/signup">
+          <Signup />
+              </Route>
+          <Route path="/">
+          <Home user={user} loggedIn={loggedIn}/>
+              </Route>
           <Route path="/rentals">
               <RentalsList loggedIn={loggedIn} />
+        </Route>
+          <Route path="/titles">
+          
+            <TitlesContainer />
+          </Route>
+          <Route path="/backpack">
+          <BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>
               </Route>
-          <Route path="/titles" element={<TitlesContainer />} />
-          <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>} />
-          <Route path="rentals/:id" element={<RentalsBooksList loggedIn={loggedIn}/>} />
+          <Route path="rentals/:id">
+          <RentalsBooksList loggedIn={loggedIn}/>
+              </Route>
           
         </Routes>
     </GeneralStyle>
