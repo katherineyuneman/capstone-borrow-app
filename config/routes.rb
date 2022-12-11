@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :rentals
   resources :book_rentals, only: [:destroy]
+  resources :authors, only: [:index]
 
   post '/titles_books', to: 'titles#titles_books'
 
