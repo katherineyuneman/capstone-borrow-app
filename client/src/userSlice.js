@@ -19,7 +19,6 @@ const initialState = {
     initialState,
     reducers: {
         login(state, action) {
-          // using createSlice lets us mutate state!
           if (Object.keys(action.payload).find(key => key==="errors") === "errors") {
             state.loggedIn = false
             state.status='rejected'
@@ -28,10 +27,8 @@ const initialState = {
               state.value = [action.payload]
               state.status='succeeded'
           }
-          
         },
         logout(state, action) {
-            // using createSlice lets us mutate state!
             state.loggedIn = false
             state.value = {}
             state.status='succeeded'

@@ -77,5 +77,5 @@ const initialState = {
       }
     });
 
-  export const { updateConfirmed, removeConfirmed } = backpackSlice.actions
+  export const { updateConfirmed, removeConfirmed, setAtLimit } = backpackSlice.actions
   export default backpackSlice.reducer;

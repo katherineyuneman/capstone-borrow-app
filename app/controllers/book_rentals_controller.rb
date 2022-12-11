@@ -10,7 +10,6 @@ class BookRentalsController < ApplicationController
     end
 
 
-
     private
     # def rental_params
     #     params.require(:rental).permit(:month, :receive_date, :return_date, :user_id)

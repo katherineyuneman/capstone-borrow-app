@@ -9,7 +9,4 @@ class Book < ApplicationRecord
   #       'transactions.created_at', 'months.month_desc', 'months.year', 'categories.description as category_description')
   # end
 
-
-
-    
 end

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
         end
     end
 
+    
     #/me show page aka gets current user if there is one in session
     def show
         @current_user = User.find_by(id: session[:user_id])

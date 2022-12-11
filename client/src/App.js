@@ -13,6 +13,7 @@ import { fetchUser, login, logout } from './userSlice'
 import { fetchBackpack } from './backpackSlice';
 import RentalsList from "./components/rentals/RentalsList";
 import RentalsBooksList from "./components/rentals/RentalsBooksList";
+import FormsContainer from "./containers/FormsContainer";
 
 function App() {
 
@@ -79,7 +80,8 @@ function App() {
           <Route path="/rentals" element={<RentalsList loggedIn={loggedIn}/>} />
           <Route path="/titles" element={<TitlesContainer />} />
           <Route path="/backpack" element={<BackpackNext loggedIn={loggedIn} backpackItems={backpackItems}/>} />
-          <Route path="rentals/:id" element={<RentalsBooksList loggedIn={loggedIn}/>} />
+          <Route path="/rentals/:id" element={<RentalsBooksList loggedIn={loggedIn}/>} />
+          <Route path="/forms" element={<FormsContainer loggedIn={loggedIn}/>} />
           
         </Routes>
     </GeneralStyle>
