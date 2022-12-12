@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-const AuthorForm = () => {
+const AuthorForm = ({handleAuthorSubmit}) => {
     const [ authorInputs, setAuthorInputs ] = useState([{
         first_name:"",
         last_name:""
@@ -12,11 +12,6 @@ const AuthorForm = () => {
             [e.target.name]: e.target.value
         })
     }
-
-    const handleAuthorSubmit = () => {
-        
-    }
-
   return (
     <div>
       <form onSubmit={(e) => handleAuthorSubmit(e, authorInputs)}>

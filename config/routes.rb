@@ -4,15 +4,14 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :titles, only: [:index, :show]
+  resources :titles, only: [:index, :show, :create]
 
-  resources :authors, only: [:index, :show] do
+  resources :authors, only: [:index, :create] do
     resources :titles, only: [:index]
   end
 
   resources :rentals
   resources :book_rentals, only: [:destroy]
-  resources :authors, only: [:index]
 
   post '/titles_books', to: 'titles#titles_books'
 

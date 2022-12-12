@@ -43,7 +43,6 @@ class RentalsController < ApplicationController
     end
 
     def update
-        
         currentRental = current_user.rentals.find_by(month: params[:id])
         if currentRental
             currentRental.update(confirmed: true)
