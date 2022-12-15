@@ -58,8 +58,8 @@ const TitleForm = () => {
     }
 
 
-    const handleAuthorSubmit = (e, authorInputs) => {
-        e.preventDefault();
+    const authorSubmit = (e, authorInputs) => {
+         e.preventDefault();
         console.log("author inputs back in Title Form component:", authorInputs)
 
         fetch('/authors', {
@@ -72,6 +72,7 @@ const TitleForm = () => {
             .then(resp => resp.json())
             .then((data) => {
                 if (data.errors){
+                    console.log("here")
                     const errorLis = data.errors.map((error, index) => <li key={index}>{index + 1}. {error}</li>)
                     setAuthorErrors(errorLis)
                     
@@ -86,8 +87,6 @@ const TitleForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log("title inputs right before fetch:", titleInputs)
 
         fetch('/titles', {
             method: 'POST',
@@ -127,7 +126,7 @@ const TitleForm = () => {
             {authorDropDownOptions}
         </select>
         </lable>
-        {displayNewAuthorForm ? <AuthorForm handleAuthorSubmit={handleAuthorSubmit}/> : null}
+        {displayNewAuthorForm ? <AuthorForm authorSubmit={authorSubmit}/> : null}
         <br />
         <label>Genre: 
               <input type="text" name="genre" value={titleInputs.genre} onChange={handleTitleInputs}/>
