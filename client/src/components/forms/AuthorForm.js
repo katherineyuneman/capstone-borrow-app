@@ -13,18 +13,21 @@ function AuthorForm ({authorSubmit}) {
         })
     }
 
-    const handleAuthorSubmit = (event) => {
+    const handleAuthorSubmit = (e) => {
         alert('clicked');
         
-        console.log("e from handleAuthorSubmit", event)
+        console.log("e from handleAuthorSubmit", e)
        
-        event.preventDefault();
-        authorSubmit(event, newAuthorInputs)
+        e.preventDefault();
+        // authorSubmit(e, newAuthorInputs)
     }
 
   return (
     <div>
-      <form onSubmit handleAuthorSubmit={event => handleAuthorSubmit(event)}>
+      <form onSubmit={(e) =>{
+            e.preventDefault();
+            handleAuthorInputs(newAuthorInputs)
+        }}>
         <label>First Name: 
             <input type="text" name="first_name" value={newAuthorInputs.first_name} onChange={handleAuthorInputs}/>
         </label>

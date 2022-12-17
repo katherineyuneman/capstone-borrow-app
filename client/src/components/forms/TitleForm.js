@@ -22,7 +22,30 @@ const TitleForm = () => {
     const [ titleErrors, setTitleErrors ] = useState([])
     const [ displayNewAuthorForm, setDisplayNewAuthorForm ] = useState(false)
 
+    const [ newAuthorInputs, setNewAuthorInputs ] = useState([{
+        first_name:"",
+        last_name:""
+    }])
+
     const navigate = useNavigate()
+
+    const handleAuthorInputs = (e) => {
+        setNewAuthorInputs({
+            ...newAuthorInputs,
+            [e.target.name]: e.target.value
+        })
+    }
+
+    const handleAuthorSubmit = (e) => {
+        alert('clicked');
+        
+        console.log("e from handleAuthorSubmit", e)
+       
+        e.preventDefault();
+        // authorSubmit(e, newAuthorInputs)
+    }
+
+    
 
     useEffect(() => {
         fetch ('/authors')
@@ -58,16 +81,16 @@ const TitleForm = () => {
     }
 
 
-    const authorSubmit = (e, authorInputs) => {
-         e.preventDefault();
-        console.log("author inputs back in Title Form component:", authorInputs)
+    const newAuthorSubmit = (e) => {
+        e.preventDefault();
+        console.log("author inputs back in Title Form component:", newAuthorInputs)
 
         fetch('/authors', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body:JSON.stringify(authorInputs)
+            body:JSON.stringify(newAuthorInputs)
             })
             .then(resp => resp.json())
             .then((data) => {
@@ -75,11 +98,10 @@ const TitleForm = () => {
                     console.log("here")
                     const errorLis = data.errors.map((error, index) => <li key={index}>{index + 1}. {error}</li>)
                     setAuthorErrors(errorLis)
-                    
                 } else {
                     console.log("hi hi hi else statement")
                     setAuthorErrors([])
-                    setDisplayNewAuthorForm(false)
+                    setDisplayNewAuthorForm(true)
                     setAuthors([...authors, data])
                 }
             })
@@ -87,7 +109,6 @@ const TitleForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         fetch('/titles', {
             method: 'POST',
             headers: {
@@ -111,6 +132,27 @@ const TitleForm = () => {
             })
     }
 
+
+    const newAuthorForm = () => {
+        if (displayNewAuthorForm === true){
+            return <div>
+                        <form >
+                            <label>First Name: 
+                                <input type="text" name="first_name" value={newAuthorInputs.first_name} onChange={handleAuthorInputs}/>
+                            </label>
+                            <label>Last Name: 
+                                <input type="text" name="last_name" value={newAuthorInputs.last_name} onChange={handleAuthorInputs}/>
+                            </label>
+                            <br />
+                            <button onClick={newAuthorSubmit}>Submit Author</button>
+                            </form>
+                    </div>
+            }
+    }
+    
+
+    
+
   return (
     <div>
       <h3>Add a new title and author below:</h3>
@@ -119,14 +161,14 @@ const TitleForm = () => {
               <input type="text" name="title" value={titleInputs.title} maxLength={30} onChange={handleTitleInputs}/>
         </label>
         <br/>
-        <lable>Main Author: 
+        <lable>Main Author:
         <select name="author_id" value={titleInputs.author_id} required onChange={(e) => handleNewAuthorInput(e)}>
             <option name="default" value="default">Select Author</option>
             <option name="addNew" value="addNew">ADD NEW AUTHOR</option>
             {authorDropDownOptions}
         </select>
         </lable>
-        {displayNewAuthorForm ? <AuthorForm authorSubmit={authorSubmit}/> : null}
+        {displayNewAuthorForm ? newAuthorForm() : <div>Please select author above.</div>}
         <br />
         <label>Genre: 
               <input type="text" name="genre" value={titleInputs.genre} onChange={handleTitleInputs}/>

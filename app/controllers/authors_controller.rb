@@ -7,7 +7,6 @@ class AuthorsController < ApplicationController
     end
 
     def create
-        byebug
         new_author = Author.create!(author_params)
         # if new_author.valid?
             render json: new_author, status: :created
