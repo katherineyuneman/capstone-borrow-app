@@ -1,24 +1,12 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const BookForm = () => {
-    const [foodIngredientOptions, setFoodIngredientOptions] = useState([])
-    const [ displayFoodForm, setDisplayFoodForm ] = useState(false)
-    const [ bookInputs, setBookInputs ] = useState({
-        rented:"",
-        expected_return: "",
-        condition:""
-    })
-    const [ titleInputs, setTitleInputs ] = useState([{
-        title:"",
-        rating: "",
-        genre:"",
-        publication_date:"",
-        image_url: ""
-    }])
+const BookForm = ({submittedTitleData}) => {
 
-    const [ authorInputs, setAuthorInputs ] = useState ([{
-
+    const [ titles, setTitles ] = useState([])
+    const [ bookInputs, setBookInputs ] = useState([{
+        condition:"",
+        title_id:""
     }])
 
     const [ createFoodErrorsList, setCreateFoodErrorsList ] = useState([])
@@ -26,54 +14,91 @@ const BookForm = () => {
 
     const navigate = useNavigate()
 
-
-    const handleSubmit = () => {
-        console.log("submit")
+    if (submittedTitleData === {}){
+        console.log("submitted title data inside if", submittedTitleData)
+        setTitles(submittedTitleData)
+    }
+    else {
+        fetch ('/titles')
+        .then(response => response.json())
+        .then((titles) => setTitles(titles))
     }
 
-    const handleBookInputs = () => {
-        console.log("recipe inputs")
+    const titleDropDownOptions = titles.map((title) => {
+        return <option key={title.id} value={title.id}>{title.title} </option>
+    })
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        // set up the array to send
+    
+        fetch('/books', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body:JSON.stringify([{bookInputs}])
+          })
+
+          .then(resp => resp.json())
+          .then((data) => {
+              console.log(data.errors)
+            if (data.errors){
+                const errorLis = data.errors.map((error, index) => <li key={[index]}>{index+1}. {error}</li>)
+                setCreateRecipeErrorsList(errorLis)
+                
+            } else {
+                setBookInputs([{
+                    condition:"",
+                    title_id:""
+                }])
+                  navigate("/titles")
+                  setCreateRecipeErrorsList([])
+              }
+          })
     }
 
-    const handleTitleInputs = () => {
-        console.log("title inputs")
+    const handleBookInputs = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...bookInputs];
+        list[index][name] = value;
+        setBookInputs(list);
+        }
+
+    const addAnotherBookField = (e) => {
+        e.preventDefault();
+        setBookInputs([...bookInputs, {
+            condition:"",
+            title_id:""
+        }])
     }
 
-    const addIngredientField = () => {
-        console.log("add ingredients")
-    }
   return (
     <div>
-      <h1>Add your recipe below:</h1>
+      <h1>Add a new book for a Title below:</h1>
         <form onSubmit={handleSubmit}>
-            <label>Recipe Title:
+            <label>Condition:
               <input type="text" name="title" value={bookInputs.title} maxLength={30} onChange={handleBookInputs}/>
             </label>
             <br/>
-            <label>Directions:
-              <input type="textarea" name="directions" value={bookInputs.directions} onChange={handleBookInputs}/>
-            </label>
-            <br/>
-            <label>Source
-              <input type="text" name="source" value={bookInputs.source} maxLength={50} onChange={handleBookInputs}/>
-            </label>
-            <br/>
-            <br/>
-            <br/>
             <br />
-            {titleInputs.map((data, index) => {
+            {bookInputs.map((data, index) => {
                 return (
                     <div key={data.id}>
-                        <select name="title_id" value={data.food_id} required onChange={(e)=>handleTitleInputs(e, index)}>
-                            <option name="default" value="default">Select Food Item</option>
-                            <option name="addNew" value="addNew">ADD NEW FOOD</option>
-                            {/* {foodDropDownOptions} */}
+                        <select name="title_id" value={data.title_id} required onChange={(e)=>handleBookInputs(e, index)}>
+                            {/* <option name="default" value="default">Select Food Item</option>
+                            <option name="addNew" value="addNew">ADD NEW FOOD</option> */}
+                            {titleDropDownOptions}
                         </select>
-                        <label>Amount:
-                            <input type="decimal" name="amount" value={data.amount} maxLength={10} onChange={(e)=>handleTitleInputs(e, index)}/>
-                        </label>
-                        <label>Measurement
-                            <input type="decimal" name="measurement" value={data.measurement} maxLength={30} onChange={(e)=>handleTitleInputs(e, index)}/>
+                        <label>Condition
+                        <select name="condition" value={data.condition} required onChange={(e)=>handleBookInputs(e, index)}>
+                            <option name="default" value="default">Select Condition</option>
+                            <option name="new" value="new">New</option>
+                            <option name="great" value="great">Great</option>
+                            <option name="good" value="good">Good</option>
+                            <option name="ok" value="great">Ok</option>
+                            <option name="very worn" value="worn">Very Worn</option>
+                        </select>
                         </label>
                     </div>
                 )
@@ -81,7 +106,7 @@ const BookForm = () => {
             }
 
             <br/>
-            <button onClick={addIngredientField}>Add another Ingredient</button>
+            <button onClick={addAnotherBookField}>Add another book for this title:</button>
             <br/>
             <br/>
               <button>Create Recipe</button>

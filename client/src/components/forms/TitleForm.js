@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import AuthorForm from './AuthorForm'
 
-const TitleForm = () => {
+const TitleForm = ({passSubmittedTitle}) => {
     const [ titleInputs, setTitleInputs ] = useState({
         title:"",
         rating:"",
@@ -26,6 +26,8 @@ const TitleForm = () => {
         first_name:"",
         last_name:""
     }])
+
+    const [ submittedTitle, setSubmittedTitle ] = useState({})
 
     const navigate = useNavigate()
 
@@ -101,7 +103,7 @@ const TitleForm = () => {
                 } else {
                     console.log("hi hi hi else statement")
                     setAuthorErrors([])
-                    setDisplayNewAuthorForm(true)
+                    setDisplayNewAuthorForm(false)
                     setAuthors([...authors, data])
                 }
             })
@@ -123,14 +125,18 @@ const TitleForm = () => {
                     setTitleErrors(errorLis)
                     
                 } else {
-                    console.log("hi hi hi else statement")
+                    console.log("data inside post title:",data)
+                    setSubmittedTitle(data)
+                    passSubmittedTitle(data)
                     setTitleErrors([])
                     setAuthorInputs({})
                     setTitleInputs({})
-                    navigate("/titles")
+                    // navigate("/titles")
+                    
                 }
             })
     }
+
 
 
     const newAuthorForm = () => {

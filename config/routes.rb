@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :titles, only: [:index]
   end
 
+  resources :books, only [:create]
+
   resources :rentals
   resources :book_rentals, only: [:destroy]
 
