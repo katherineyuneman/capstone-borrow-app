@@ -126,12 +126,12 @@ const TitleForm = ({passSubmittedTitle}) => {
                     
                 } else {
                     console.log("data inside post title:",data)
-                    setSubmittedTitle(data)
-                    passSubmittedTitle(data)
                     setTitleErrors([])
                     setAuthorInputs({})
                     setTitleInputs({})
-                    // navigate("/titles")
+                    setSubmittedTitle(data)
+                    passSubmittedTitle(data)
+                    // navigate("/forms")
                     
                 }
             })

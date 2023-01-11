@@ -13,31 +13,44 @@ const BookForm = ({submittedTitleData}) => {
     const [ createRecipeErrorsList, setCreateRecipeErrorsList ] = useState([])
 
     const navigate = useNavigate()
+    console.log("submitted title data inside component for bookForm:", submittedTitleData.length
+    )
 
-    if (submittedTitleData === {}){
+    if (submittedTitleData.length !== 0){
         console.log("submitted title data inside if", submittedTitleData)
         setTitles(submittedTitleData)
     }
-    else {
+    
+    
+    useEffect(() => {
         fetch ('/titles')
         .then(response => response.json())
-        .then((titles) => setTitles(titles))
-    }
+        .then((pulledTitles) => {
+            console.log("titles fetched:", pulledTitles)
+            // if (submittedTitleData.length === 0){
+                setTitles(pulledTitles)}
+            // } 
+        )
+    },[])
 
-    const titleDropDownOptions = titles.map((title) => {
-        return <option key={title.id} value={title.id}>{title.title} </option>
-    })
+
+    const titleDropDownOptions =  () => {
+        titles.map((title) => {
+            console.log(title.title)
+            return <option key={title.id} value={title.id}>{title.title} </option>
+        })
+    }
 
     const handleSubmit = e => {
         e.preventDefault()
         // set up the array to send
-    
+        console.log(bookInputs)
         fetch('/books', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body:JSON.stringify([{bookInputs}])
+          body:JSON.stringify(bookInputs)
           })
 
           .then(resp => resp.json())
@@ -75,11 +88,7 @@ const BookForm = ({submittedTitleData}) => {
 
   return (
     <div>
-      <h1>Add a new book for a Title below:</h1>
         <form onSubmit={handleSubmit}>
-            <label>Condition:
-              <input type="text" name="title" value={bookInputs.title} maxLength={30} onChange={handleBookInputs}/>
-            </label>
             <br/>
             <br />
             {bookInputs.map((data, index) => {
@@ -88,7 +97,7 @@ const BookForm = ({submittedTitleData}) => {
                         <select name="title_id" value={data.title_id} required onChange={(e)=>handleBookInputs(e, index)}>
                             {/* <option name="default" value="default">Select Food Item</option>
                             <option name="addNew" value="addNew">ADD NEW FOOD</option> */}
-                            {titleDropDownOptions}
+                            {submittedTitleData.length !== 0 ? <option name={submittedTitleData.title} value={submittedTitleData.id}>{submittedTitleData.title}</option> : titleDropDownOptions()}
                         </select>
                         <label>Condition
                         <select name="condition" value={data.condition} required onChange={(e)=>handleBookInputs(e, index)}>

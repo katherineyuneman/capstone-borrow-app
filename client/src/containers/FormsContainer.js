@@ -6,7 +6,7 @@ const FormsContainer = ({loggedIn}) => {
 
   const [ titleFormOpen, setTitleFormOpen ] = useState(false)
   const [ bookFormOpen, setBookFormOpen ] = useState(false)
-  const [ submittedTitleData, setSubmittedTitleData ] = useState({})
+  const [ submittedTitleData, setSubmittedTitleData ] = useState([])
   const [ newBookOpen, setNewBookOpen ] = useState(false)
 
   console.log("submitted title data:", submittedTitleData)
@@ -32,8 +32,8 @@ const FormsContainer = ({loggedIn}) => {
       <button onClick={handleAddTitle}>Add New Title</button>
       <button onClick={handleAddBook}>Add New Book</button>
       { titleFormOpen ? <TitleForm passSubmittedTitle={passSubmittedTitle}/> : null }
-      { bookFormOpen ? <BookForm submittedTitleData={submittedTitleData}/> : null }
-      { newBookOpen ? <div><h1>Add a new book for this Title: {submittedTitleData.title} </h1> <BookForm/></div> : null }
+      { bookFormOpen && newBookOpen === false ? <BookForm submittedTitleData={submittedTitleData}/> : null }
+      { newBookOpen ? <div><h1>Add a new book for this Title: {submittedTitleData.title} </h1> <BookForm submittedTitleDa={submittedTitleData}/></div> : null }
     </div>
   )
 }
