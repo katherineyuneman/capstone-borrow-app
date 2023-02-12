@@ -9,7 +9,8 @@ class BooksController < ApplicationController
 
     private
     def book_params
-        params.permit(:condition, :title_id)
+        params.require(:_json)
+        # params.permit(:_json, :condition, :title_id, :book)
     end
 
     def render_unprocessable_entity_response(invalid)
